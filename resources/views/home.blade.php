@@ -21,7 +21,7 @@
                                 <h2 class="card-title text-base font-bold line-clamp-1">{{ $book->title }}</h2>
                                 <p class="text-xs text-base-content/70">{{ $book->author }}</p>
                                 <div class="card-actions justify-end mt-4">
-                                    <a class="btn btn-primary btn-sm">View Details</a>
+                                    <a class="btn text-white btn-primary btn-sm">View Details</a>
                                 </div>
                             </div>
                         </div>
