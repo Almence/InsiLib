@@ -17,11 +17,13 @@
                             <figure class="px-4 pt-4">
                                 <img src="{{ $book->cover_image }}" alt="{{ $book->title }}" class="w-full h-full object-cover rounded-xl" />
                             </figure>
-                            <div class="card-body p-4">
-                                <h2 class="card-title text-base font-bold line-clamp-1">{{ $book->title }}</h2>
-                                <p class="text-xs text-base-content/70">{{ $book->author }}</p>
-                                <div class="card-actions justify-end mt-4">
-                                    <a class="btn text-white btn-primary btn-sm">View Details</a>
+                            <div class="card-body p-4 flex flex-row justify-between">
+                                <div>
+                                    <h2 class="card-title text-base font-bold line-clamp-1">{{ $book->title }}</h2>
+                                    <p class="text-xs text-base-content/70">{{ $book->author }}</p>
+                                </div>
+                                <div class="card-actions items-center">
+                                    <a class="btn text-white btn-primary btn-sm">Lihat Detail</a>
                                 </div>
                             </div>
                         </div>
