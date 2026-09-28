@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InsiLib - Daftar Akun</title>
+<title>Register - InsiLib</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
@@ -26,11 +26,11 @@
       <span class="font-serif-italic text-lg text-cyan-800">InsiLib</span>
     </div>
     <div class="hidden sm:flex items-center gap-6 text-sm text-gray-600">
-      <a href="#" class="text-cyan-700 font-medium">Beranda</a>
-      <a href="#" class="hover:text-gray-900">Tentang</a>
-      <a href="#" class="hover:text-gray-900">Pengaturan</a>
+      <a href="#" class="hover:text-gray-900 disabled:opacity-50" aria-disabled="true">Beranda</a>
+      <a href="#" class="hover:text-gray-900 disabled:opacity-50" aria-disabled="true">Tentang</a>
+      <a href="#" class="hover:text-gray-900 disabled:opacity-50" aria-disabled="true">Pengaturan</a>
     </div>
-    <a href="#" class="text-sm bg-cyan-50 text-cyan-700 px-4 py-1.5 rounded-md font-medium hover:bg-cyan-100">Keluar</a>
+    <a href="#" class="text-sm bg-gray-300 text-gray-700 px-4 py-1.5 rounded-md font-medium disabled:opacity-50" aria-disabled="true">Keluar</a>
   </nav>
 
   <!-- Main split section -->
@@ -76,7 +76,7 @@
         <h2 class="text-2xl font-bold text-gray-900 mb-1">Buat Akun Baru</h2>
         <p class="text-sm text-gray-500 mb-8">Daftar untuk mulai mengakses layanan perpustakaan digital lengkap</p>
 
-        <form action="#" method="POST" class="space-y-5">
+        <form action="{{ route('register.process') }}" method="POST" class="space-y-5">
 
           <div>
             <label for="name" class="block text-sm font-medium text-gray-700 mb-1.5">Nama Lengkap</label>
@@ -152,7 +152,7 @@
           </button>
 
           <p class="text-center text-sm text-gray-500">
-            Sudah punya akun? <a href="#" class="text-cyan-700 font-medium hover:underline">Masuk</a>
+            Sudah punya akun? <a href="{{ route('login') }}" class="text-cyan-700 font-medium hover:underline">Masuk</a>
           </p>
         </form>
       </div>

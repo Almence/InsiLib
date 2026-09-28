@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -39,5 +41,37 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login')->with('success', 'Berhasil Logout');
+    }
+
+    public function showRegister()
+    {
+        return view('register');
+    }
+
+    public function processRegister(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'role' => 'user', // Set default role as user
+        ]);
+
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'Gagal mendaftar. Silakan coba lagi.',
+            ])->onlyInput('email');
+        }
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('dashboard'))->with('success', 'Berhasil mendaftar dan login');
     }
 }

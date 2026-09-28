@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>
-        Welcome
+        Index Book
     </x-slot:title>
 
     <div class="mx-2 md:mx-8 my-8">
@@ -28,7 +28,6 @@
                             </div>
                         </div>
                     @empty
-                        <!-- col-span-full agar pesan kosong memenuhi seluruh lebar grid -->
                         <div class="col-span-full text-center py-8">
                             <p class="text-base-content/60">No books available.</p>
                         </div>
