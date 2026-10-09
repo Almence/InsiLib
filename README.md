@@ -7,3 +7,12 @@ InsiLib adalah website peminjaman buku dalam lingkup perpustakaan sekolah. Denga
     <li>Indeks buku dengan filter dan search.</li>
     <li>Peminjaman yang di-otomatisasi.</li>
 </ul>
+
+## Penggunaan Delevopment
+
+Website dibuat dengan framework Laravel yang dipadukan dengan TailWind.CSS sebagai pemercantik tampilan. 
+
+## Link Hosting
+#<a href="">
+
+#
