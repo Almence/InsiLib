@@ -9,6 +9,8 @@
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -55,7 +57,7 @@
 
     <footer class="footer footer-center p-5 bg-base-300 text-base-content text-xs">
         <div>
-            <p>© {{ date('Y') }} Chirper - Built with Laravel and ❤️</p>
+            <p>© {{ date('Y') }} InsiLib - Built with Laravel</p>
         </div>
     </footer>
 </body>
