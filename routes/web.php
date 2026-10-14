@@ -13,7 +13,9 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [BookController::class, 'index'])->name('dashboard');
+    Route::get('/catalog', [BookController::class, 'index'])->name('catalog');
+    Route::get('/dashboard', )->name('dashboard');
+    Route::get('/profile', )->name('profile');
     Route::resource('books', BookController::class)->only(['index', 'show']);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

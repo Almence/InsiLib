@@ -28,19 +28,21 @@
 <body class="min-h-screen flex flex-col bg-base-200 font-sans">
     <nav class="flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-100">
         <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-cyan-700 rounded-md flex items-center justify-center text-white text-sm font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                </svg>
-            </div>
-            <span class="font-serif-italic text-lg text-cyan-800">InsiLib</span>
+            <a href="{{ route('catalog') }}" class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-cyan-700 rounded-md flex items-center justify-center text-white text-sm font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    </svg>
+                </div>
+                <span class="font-serif-italic text-lg text-cyan-800">InsiLib</span>
+            </a>
         </div>
         <div class="hidden sm:flex items-center gap-6 text-sm text-gray-600">
-            <a href="#" class="text-cyan-700 font-medium">Beranda</a>
-            <a href="#" class="hover:text-gray-900">Tentang</a>
-            <a href="#" class="hover:text-gray-900">Pengaturan</a>
+            <a href="{{ route('dashboard') }}" class="text-cyan-700 font-medium">Dashboard</a>
+            <a href="{{ route('profile') }}" class="hover:text-gray-900">Profil</a>
+            <a href="{{ route('catalog') }}" class="hover:text-gray-900">Katalog Buku</a>
         </div>
         <form action="{{ route('logout') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin keluar?')">
             @csrf

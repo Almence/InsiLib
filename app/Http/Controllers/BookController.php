@@ -15,9 +15,13 @@ class BookController extends Controller
     public function index(Request $request): View
     {
         $search = trim((string) $request->input('search', ''));
+        $sortBy = (string) $request->input('sort_by', 'title');
+        $sortDirection = (string) $request->input('sortDirection', 'asc');
+        $filterBy = (string) $request->input('filter_by', 'all');
         $perPage = (int) $request->input('per_page', 20);
         $perPage = in_array($perPage, [10, 20, 50, 100], true) ? $perPage : 20;
 
+        $categories = \App\Models\Category::all();
         $books = Book::query()
             ->when($search !== '', function (Builder $query) use ($search): void {
                 $query->where(function (Builder $query) use ($search): void {
@@ -25,10 +29,14 @@ class BookController extends Controller
                         ->orWhere('author', 'like', "%{$search}%");
                 });
             })
+            ->when($filterBy !== 'all', function (Builder $query) use ($filterBy): void {
+                $query->where('category_id', $filterBy);
+            })
+            ->orderBy($sortBy, $sortDirection)
             ->paginate($perPage)
             ->withQueryString();
 
-        return view('index', compact('books'));
+        return view('katalog', compact('books', 'categories'));
     }
 
     /**
