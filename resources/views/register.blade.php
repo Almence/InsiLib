@@ -77,7 +77,7 @@
         <p class="text-sm text-gray-500 mb-8">Daftar untuk mulai mengakses layanan perpustakaan digital lengkap</p>
 
         <form action="{{ route('register.process') }}" method="POST" class="space-y-5">
-
+          @csrf
           <div>
             <label for="name" class="block text-sm font-medium text-gray-700 mb-1.5">Nama Lengkap</label>
             <div class="relative">
