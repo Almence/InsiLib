@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $perPage = (int) $request->input('per_page', 10);
         $loans = auth()->user()->loans()->with('book')->paginate($perPage);
 
-        if (auth()->user()->role = 'admin') {
+        if (auth()->user()->role === 'admin') {
             $pendingLoans = Loan::with(['user', 'book'])->where('status', 'pending')->latest()->get();
             $borrowedLoans = Loan::with(['user', 'book'])->where('status', 'borrowed')->latest()->get();
             return view('dashboard', compact('borrowedLoans', 'pendingLoans'));

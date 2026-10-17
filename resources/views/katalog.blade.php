@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>
-        Katalog BUku
+        Katalog Buku
     </x-slot:title>
 
     <div class="mx-2 md:mx-8 my-8">
@@ -88,7 +88,7 @@
                     @endif
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                     @forelse($books as $book)
                         <div class="card bg-base-100 shadow-md border border-base-200">
                             <figure class="px-4 pt-4">
