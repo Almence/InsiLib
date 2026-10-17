@@ -19,7 +19,8 @@ return new class extends Migration
             $table->date('borrow_date');
             $table->date('due_date');
             $table->date('return_date')->nullable();
-            $table->enum('status', ['borrowed', 'returned', 'late'])->default('borrowed');
+            $table->enum('status', ['pending', 'rejected','borrowed', 'returned', 'late'])->default('pending');
+            $table->string('verification_code', 4)->nullable();
             $table->integer('fine')->default(0);
             $table->timestamps();
         });

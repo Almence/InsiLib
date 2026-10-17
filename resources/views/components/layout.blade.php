@@ -26,7 +26,7 @@
 </head>
 
 <body class="min-h-screen flex flex-col bg-base-200 font-sans">
-    <nav class="flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-100">
+    <nav class="flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-100 no-print">
         <div class="flex items-center gap-2">
             <a href="{{ route('catalog') }}" class="flex items-center gap-2">
                 <div class="w-8 h-8 bg-cyan-700 rounded-md flex items-center justify-center text-white text-sm font-bold">
