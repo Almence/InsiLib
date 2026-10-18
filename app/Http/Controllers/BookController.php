@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -44,7 +45,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+
+        return view('admin.books.create', compact('categories'));
     }
 
     /**
@@ -52,7 +55,30 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'publisher' => 'required|string|max:255',
+            'year' => 'required|numeric|digits:4',
+            'stock' => 'required|integer|min:0',
+            'cover_image' => 'nullable|url',
+
+            'category_ids' => 'required|array|min:1',
+            'category_ids.*' => 'exists:categories,id',
+        ]);
+
+        $book = Book::create([
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'publisher' => $validated['publisher'],
+            'year' => $validated['year'],
+            'stock' => $validated['stock'],
+            'cover_image' => $validated['cover_image'] ?? null,
+        ]);
+
+        $book->categories()->attach($request->category_ids);
+
+        return redirect()->route('dashboard')->with('success', 'Buku berhasil ditambahkan!');
     }
 
     /**
@@ -66,17 +92,45 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $categories = Category::all();
+
+        return view('admin.books.update', compact('book', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $book = Book::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'publisher' => 'required|string|max:255',
+            'year' => 'required|numeric|digits:4',
+            'stock' => 'required|integer|min:0',
+            'cover_image' => 'nullable|url',
+            'category_ids' => 'required|array|min:1',
+            'category_ids.*' => 'exists:categories,id',
+        ]);
+
+        // 2. Update Data Utama Buku
+        $book->update([
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'publisher' => $validated['publisher'],
+            'year' => $validated['year'],
+            'stock' => $validated['stock'],
+            'cover_image' => $validated['cover_image'] ?? null,
+        ]);
+
+        $book->categories()->sync($request->category_ids);
+
+        return redirect()->route('dashboard')->with('success', 'Buku berhasil diperbarui!');
     }
 
     /**

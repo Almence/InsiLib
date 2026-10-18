@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 use App\Models\Loan;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,14 +15,13 @@ class DashboardController extends Controller
     public function index(Request $request): View
     {
         $perPage = (int) $request->input('per_page', 10);
-        $loans = auth()->user()->loans()->with('book')->paginate($perPage);
-
+        
         if (auth()->user()->role === 'admin') {
             $pendingLoans = Loan::with(['user', 'book'])->where('status', 'pending')->latest()->get();
             $borrowedLoans = Loan::with(['user', 'book'])->where('status', 'borrowed')->latest()->get();
             return view('dashboard', compact('borrowedLoans', 'pendingLoans'));
         }
-
+        $loans = auth()->user()->loans()->with('book')->paginate($perPage);
         return view('dashboard', compact('loans'));
     }
 

@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     protected $fillable = [
-        "category_id",
         "title",
         "author",
         "publisher",
@@ -19,8 +19,8 @@ class Book extends Model
         'cover_image',
     ];
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 }

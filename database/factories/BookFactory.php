@@ -29,9 +29,6 @@ class BookFactory extends Factory
         ];
 
         return [
-            // Mengambil ID kategori acak
-            'category_id' => Category::inRandomOrder()->first()->id,
-            
             // Mengambil judul acak + menambahkan variasi volume/edisi
             'title' => fake()->randomElement($judulBuku) . ' - Vol. ' . fake()->numberBetween(1, 5),
             
@@ -50,5 +47,13 @@ class BookFactory extends Factory
             // Gambar sampul buku otomatis (Resolusi 400x600 piksel)
             'cover_image' => 'https://picsum.photos/seed/' . fake()->uuid() . '/400/600',
         ];
+    }
+    public function configure(): static
+    {
+        return $this->afterCreating(function (\App\Models\Book $book) {
+            // Ambil 1 sampai 3 kategori secara acak dari database, lalu pasangkan ke buku ini
+            $randomCategories = Category::inRandomOrder()->take(rand(1, 3))->pluck('id');
+            $book->categories()->attach($randomCategories);
+        });
     }
 }

@@ -15,6 +15,7 @@ class Loan extends Model
         'return_date',
         'status',
         'fine',
+        'verification_code',
     ];
     protected static function booted()
     {
@@ -23,11 +24,11 @@ class Loan extends Model
         });  
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
-    public function books()
+    public function book()
     {
         return $this->belongsTo(Book::class);
     }

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Book;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -35,6 +36,10 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
         ]);
 
-        Book::factory(50)->create();
+        Book::factory(50)->create()->each(function ($book) {
+            $categoryIds = Category::inRandomOrder()->take(rand(1, 2))->pluck('id');
+
+            $book->categories()->attach($categoryIds);
+        });
     }
 }

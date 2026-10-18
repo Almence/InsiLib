@@ -15,6 +15,8 @@
                             <p class="text-base-content/70 text-sm">Kelola verifikasi peminjaman dan pengembalian buku fisik perpustakaan.</p>
                         </div>
                         <a href="{{ route('admin.print-qr') }}" class="btn text-white btn-neutral btn-sm">🖨️ Cetak QR Code Buku</a>
+                        <a href="{{ route('books.create') }}" class="btn text-white btn-neutral btn-sm">Tambah Buku</a>
+                        <a href="{{ route('catalog') }}" class="btn text-white btn-neutral btn-sm">Edit Buku</a>
                     </div>
 
                     <!-- BAGIAN 1: VERIFIKASI PEMINJAMAN PENDING -->

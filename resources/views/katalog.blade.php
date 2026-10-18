@@ -11,7 +11,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <h1 class="text-3xl font-bold">Katalog InsiLib</h1>
 
-                    <form method="GET" action="{{ route('dashboard') }}"
+                    <form method="GET" action="{{ route('catalog') }}"
                         class="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
 
                         <!-- Kolom Search (Menggunakan DaisyUI Join) -->
@@ -22,7 +22,7 @@
                             <button type="submit"
                                 class="btn btn-primary join-item bg-gray-800 text-white px-4">Cari</button>
                             @if(request('search'))
-                                <a href="{{ route('dashboard') }}"
+                                <a href="{{ route('catalog') }}"
                                     class="btn btn-ghost join-item bg-gray-800 text-white px-4">Reset</a>
                             @endif
                         </div>
@@ -37,7 +37,10 @@
                                 </option>
                                 <option value="year" {{ request('sort_by') == 'year' ? 'selected' : '' }}>Tahun Terbit
                                 </option>
-                                <option value="stock" {{ request('sort_by') == 'stock' ? 'selected' : '' }}>Stok</option>
+                                <option value="stock" {{ request('sort_by') == 'stock' ? 'selected' : '' }}>Stok
+                                </option>
+                                <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>Tanggal ditambahkan
+                                </option>
                             </select>
                         </div>
 
@@ -68,7 +71,7 @@
                         </div>
 
                         <!-- Dropdown Per Page -->
-                        <div >
+                        <div>
                             <label for="per_page" class="text-sm font-medium">Tampilkan Per Halaman:</label>
                             <select name="per_page" id="per_page" onchange="this.form.submit()"
                                 class="select select-bordered select-sm">
@@ -101,12 +104,18 @@
                                     <p class="text-xs text-base-content/70">{{ $book->author }}</p>
                                     <p class="text-xs text-base-content/60">Stok: {{ $book->stock }}</p>
                                 </div>
-                                <div class="card-actions justify-end items-end mt-4">
+                                <div class="card-actions flex flex-col justify-end items-end mt-4">
                                     <button type="button"
                                         onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()"
                                         class="btn btn-primary bg-gray-800 text-white px-4 py-1 text-sm focus:outline">
                                         Detail
                                     </button>
+                                    @if (Auth::user()->role === 'admin')
+                                        <a href="{{ route('books.edit', $book->id) }}"
+                                            class="btn btn-primary bg-gray-800 text-white px-4 py-1 text-sm focus:outline">
+                                            Edit
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -138,8 +147,13 @@
                                             <div>
                                                 <span class="text-base-content/60 block">Kategori</span>
                                                 <!-- Mengambil nama kategori dari relasi database -->
-                                                <span
-                                                    class="badge badge-outline badge-sm bg-gray-200">{{ $book->category->name ?? 'Umum' }}</span>
+                                                @forelse ($book->categories as $category)
+                                                    <span
+                                                        class="badge badge-outline badge-sm bg-gray-200">{{ $category->name ?? 'Umum' }}</span>
+                                                @empty
+                                                    <span
+                                                        class="text-xs text-base-content/50 italic">Tanpa Kategori</span>
+                                                @endforelse
                                             </div>
                                             <div>
                                                 <span class="text-base-content/60 block">Status Stok</span>
