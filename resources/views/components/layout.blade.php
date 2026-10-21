@@ -7,15 +7,21 @@
     <title>{{ isset($title) ? $title . ' - InsiLib' : 'InsiLib' }}</title>
     <link rel="preconnect" href="<https://fonts.bunny.net>">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
+                @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Outfit', sans-serif;
         }
 
         .font-serif-italic {
@@ -29,7 +35,8 @@
     <nav class="flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-100 no-print">
         <div class="flex items-center gap-2">
             <a href="{{ route('catalog') }}" class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-cyan-700 rounded-md flex items-center justify-center text-white text-sm font-bold">
+                <div
+                    class="w-8 h-8 bg-cyan-700 rounded-md flex items-center justify-center text-white text-sm font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
@@ -44,7 +51,8 @@
             <a href="{{ route('profile') }}" class="hover:text-gray-900">Profil</a>
             <a href="{{ route('catalog') }}" class="hover:text-gray-900">Katalog Buku</a>
         </div>
-        <form action="{{ route('logout') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin keluar?')">
+        <form action="{{ route('logout') }}" method="POST"
+            onsubmit="return confirm('Apakah Anda yakin ingin keluar?')">
             @csrf
             <button type="submit"
                 class="text-sm bg-cyan-50 text-cyan-700 px-4 py-1.5 rounded-md font-medium hover:bg-cyan-100">

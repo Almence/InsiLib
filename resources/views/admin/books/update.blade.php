@@ -12,7 +12,7 @@
                         <h1 class="text-2xl md:text-3xl font-bold">Edit Informasi Buku</h1>
                         <p class="text-xs text-base-content/70 mt-1">Perbarui detail buku dan kategorinya di bawah ini.</p>
                     </div>
-                    <a href="{{ route('dashboard') }}" class="btn btn-ghost btn-sm">← Kembali</a>
+                    <a href="{{ route('catalog') }}" class="btn btn-ghost btn-sm">← Kembali</a>
                 </div>
 
                 <form action="{{ route('books.update', $book->id) }}" method="POST" class="space-y-6">
@@ -100,7 +100,7 @@
                             @foreach($categories as $category)
                                 <label class="label cursor-pointer justify-start gap-3 bg-base-200/50 p-3 rounded-xl border border-base-300 hover:bg-base-200 transition">
                                     <input type="checkbox" name="category_ids[]" value="{{ $category->id }}" 
-                                        class="checkbox checkbox-primary checkbox-sm"
+                                        class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
                                         {{ 
                                             (is_array(old('category_ids')) && in_array($category->id, old('category_ids'))) || 
                                             (!old('category_ids') && $book->categories->contains($category->id)) 

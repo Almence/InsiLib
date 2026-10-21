@@ -12,10 +12,10 @@
                         <h1 class="text-2xl md:text-3xl font-bold">Tambah Buku Baru</h1>
                         <p class="text-xs text-base-content/70 mt-1">Isi formulir di bawah ini untuk menambahkan koleksi buku baru ke sistem InsiLib.</p>
                     </div>
-                    <a href="{{ route('dashboard') }}" class="btn btn-ghost btn-sm">← Kembali</a>
+                    <a href="{{ route('catalog') }}" class="btn btn-ghost btn-sm">← Kembali</a>
                 </div>
 
-                <form action="{{ route('books.store') }}" method="POST" class="space-y-6">
+                <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                     @csrf
 
                     <!-- Judul Buku -->
@@ -81,9 +81,9 @@
                         <!-- URL Gambar Sampul -->
                         <div class="form-control w-full md:col-span-2">
                             <label class="label">
-                                <span class="label-text font-semibold">URL Sampul Buku (Cover Image)</span>
+                                <span class="label-text font-semibold">Sampul Buku (Cover Image)</span>
                             </label>
-                            <input type="url" name="cover_image" value="{{ old('cover_image') }}" placeholder="https://picsum.photos/400/600" class="input input-bordered w-full @error('cover_image') input-error @enderror" />
+                            <input type="file" name="cover_image" value="{{ old('cover_image') }}" placeholder="https://picsum.photos/400/600" class="file-input @error('cover_image') input-error @enderror" accept=".jpg,.jpeg,.png,.gif" />
                             @error('cover_image')
                                 <span class="text-error text-xs mt-1">{{ $message }}</span>
                             @enderror

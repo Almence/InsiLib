@@ -1,3 +1,4 @@
+@use('Illuminate\Support\Str')
 <x-layout>
     <x-slot:title>
         Katalog Buku
@@ -21,7 +22,7 @@
                                 class="input input-bordered join-item w-full md:w-80" />
                             <button type="submit"
                                 class="btn btn-primary join-item bg-gray-800 text-white px-4">Cari</button>
-                            @if(request('search'))
+                            @if (request('search'))
                                 <a href="{{ route('catalog') }}"
                                     class="btn btn-ghost join-item bg-gray-800 text-white px-4">Reset</a>
                             @endif
@@ -31,7 +32,8 @@
                             <label for="sort_by" class="text-sm font-medium">Urutkan:</label>
                             <select name="sort_by" id="sort_by" onchange="this.form.submit()"
                                 class="select select-bordered select-sm">
-                                <option value="title" {{ request('sort_by', 'title') == 'title' ? 'selected' : '' }}>Judul
+                                <option value="title" {{ request('sort_by', 'title') == 'title' ? 'selected' : '' }}>
+                                    Judul
                                 </option>
                                 <option value="author" {{ request('sort_by') == 'author' ? 'selected' : '' }}>Pengarang
                                 </option>
@@ -39,7 +41,8 @@
                                 </option>
                                 <option value="stock" {{ request('sort_by') == 'stock' ? 'selected' : '' }}>Stok
                                 </option>
-                                <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>Tanggal ditambahkan
+                                <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>
+                                    Tanggal ditambahkan
                                 </option>
                             </select>
                         </div>
@@ -51,7 +54,8 @@
                                 <option value="asc" {{ request('sortDirection', 'asc') == 'asc' ? 'selected' : '' }}>
                                     Menaik
                                 </option>
-                                <option value="desc" {{ request('sortDirection') == 'desc' ? 'selected' : '' }}>Menurun
+                                <option value="desc" {{ request('sortDirection') == 'desc' ? 'selected' : '' }}>
+                                    Menurun
                                 </option>
                             </select>
                         </div>
@@ -60,10 +64,12 @@
                             <label for="filter_by" class="text-sm font-medium">Filter Kategori:</label>
                             <select name="filter_by" id="filter_by" onchange="this.form.submit()"
                                 class="select select-bordered select-sm">
-                                <option value="all" {{ request('filter_by', 'all') == 'all' ? 'selected' : '' }}>Semua
+                                <option value="all" {{ request('filter_by', 'all') == 'all' ? 'selected' : '' }}>
+                                    Semua
                                 </option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ request('filter_by') == $category->id ? 'selected' : '' }}>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ request('filter_by') == $category->id ? 'selected' : '' }}>
                                         {{ $category->name }}
                                     </option>
                                 @endforeach
@@ -75,10 +81,14 @@
                             <label for="per_page" class="text-sm font-medium">Tampilkan Per Halaman:</label>
                             <select name="per_page" id="per_page" onchange="this.form.submit()"
                                 class="select select-bordered select-sm">
-                                <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10 buku</option>
-                                <option value="20" {{ request('per_page', 20) == 20 ? 'selected' : '' }}>20 buku</option>
-                                <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50 buku</option>
-                                <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100 buku</option>
+                                <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10 buku
+                                </option>
+                                <option value="20" {{ request('per_page', 20) == 20 ? 'selected' : '' }}>20 buku
+                                </option>
+                                <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50 buku
+                                </option>
+                                <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100 buku
+                                </option>
                             </select>
                         </div>
                     </form>
@@ -95,8 +105,19 @@
                     @forelse($books as $book)
                         <div class="card bg-base-100 shadow-md border border-base-200">
                             <figure class="px-4 pt-4">
-                                <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
-                                    class="w-full h-full object-cover rounded-xl" />
+                                @if ($book->cover_image)
+                                    @if (\Illuminate\Support\Str::startsWith($book->cover_image, ['http://', 'https://']))
+                                        <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
+                                            class="w-full h-full object-cover rounded-xl" />
+                                    @else
+                                        <img src="{{ asset('storage/' . $book->cover_image) }}"
+                                            alt="Cover {{ $book->title }}"
+                                            class="w-full h-full object-cover rounded-xl">
+                                    @endif
+                                @else
+                                    <img src="{{ asset('images/NoImage.jpg') }}" alt="Cover tidak tersedia"
+                                        class="w-full h-full object-cover rounded-xl">
+                                @endif
                             </figure>
                             <div class="card-body p-4 flex flex-row justify-between">
                                 <div>
@@ -142,7 +163,8 @@
                                             <div>
                                                 <span class="text-base-content/60 block">Penerbit</span>
                                                 <span class="font-semibold">{{ $book->publisher }}
-                                                    ({{ $book->year }})</span>
+                                                    ({{ $book->year }})
+                                                </span>
                                             </div>
                                             <div>
                                                 <span class="text-base-content/60 block">Kategori</span>
@@ -151,14 +173,15 @@
                                                     <span
                                                         class="badge badge-outline badge-sm bg-gray-200">{{ $category->name ?? 'Umum' }}</span>
                                                 @empty
-                                                    <span
-                                                        class="text-xs text-base-content/50 italic">Tanpa Kategori</span>
+                                                    <span class="text-xs text-base-content/50 italic">Tanpa
+                                                        Kategori</span>
                                                 @endforelse
                                             </div>
                                             <div>
                                                 <span class="text-base-content/60 block">Status Stok</span>
-                                                @if($book->stock > 0)
-                                                    <span class="badge badge-success text-white">Tersedia ({{ $book->stock }}
+                                                @if ($book->stock > 0)
+                                                    <span class="badge badge-success text-white">Tersedia
+                                                        ({{ $book->stock }}
                                                         eksemplar)</span>
                                                 @else
                                                     <span class="badge badge-error text-white">Stok Habis</span>
@@ -167,7 +190,7 @@
                                         </div>
 
                                         <div class="modal-action mt-6 justify-end">
-                                            @if($book->stock > 0)
+                                            @if ($book->stock > 0)
                                                 <!-- Tombol Peminjaman (Persiapan fitur loan berikutnya) -->
                                                 <button type="button" class="btn btn-success text-white">Pinjam Buku
                                                     Ini</button>

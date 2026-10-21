@@ -61,11 +61,17 @@ class BookController extends Controller
             'publisher' => 'required|string|max:255',
             'year' => 'required|numeric|digits:4',
             'stock' => 'required|integer|min:0',
-            'cover_image' => 'nullable|url',
+            'cover_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
 
             'category_ids' => 'required|array|min:1',
             'category_ids.*' => 'exists:categories,id',
         ]);
+
+        $image = null;
+
+        if ($request->hasFile('cover_image')) {
+            $imagePath = $request->file('cover_image')->store('inventories', 'public');
+        }
 
         $book = Book::create([
             'title' => $validated['title'],
@@ -73,7 +79,7 @@ class BookController extends Controller
             'publisher' => $validated['publisher'],
             'year' => $validated['year'],
             'stock' => $validated['stock'],
-            'cover_image' => $validated['cover_image'] ?? null,
+            'cover_image' => $imagePath,
         ]);
 
         $book->categories()->attach($request->category_ids);
