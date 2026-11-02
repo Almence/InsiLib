@@ -18,8 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-                @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
         body {
             font-family: 'Outfit', sans-serif;
         }
@@ -31,39 +32,79 @@
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-base-200 font-sans">
-    <nav class="flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-100 no-print">
-        <div class="flex items-center gap-2">
-            <a href="{{ route('catalog') }}" class="flex items-center gap-2">
-                <div
-                    class="w-8 h-8 bg-cyan-700 rounded-md flex items-center justify-center text-white text-sm font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                    </svg>
+<body class="min-h-screen flex flex-col bg-base-300 font-sans">
+    <div class="drawer">
+        <input id="my-drawer-2" type="checkbox" class="drawer-toggle lg:hidden" />
+        <div class="drawer-content flex flex-col">
+            <!-- Navbar -->
+            <div class="navbar bg-base-300 w-full">
+                <div class="flex-none lg:hidden">
+                    <label for="my-drawer-2" aria-label="open sidebar" class="btn btn-square btn-ghost drawer-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="inline-block h-6 w-6 stroke-current">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
                 </div>
-                <span class="font-serif-italic text-lg text-cyan-800">InsiLib</span>
-            </a>
+                <div class="mx-2 flex-1 px-2">
+                    <a href="{{ route('catalog') }}" class="flex items-center gap-2">
+                        <div
+                            class="w-8 h-8 bg-cyan-700 rounded-md flex items-center justify-center text-white text-sm font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                            </svg>
+                        </div>
+                        <span class="font-serif-italic text-lg text-cyan-800">InsiLib</span>
+                    </a>
+                </div>
+                <div class="hidden flex-none lg:block">
+                    <ul class="menu menu-horizontal">
+                        <!-- Navbar menu content here -->
+                        <li><a href="{{ route('dashboard') }}" class="text-cyan-700 font-medium">Dashboard</a></li>
+                        <li><a href="{{ route('profile') }}" class="hover:text-gray-900">Profil</a></li>
+                        <li><a href="{{ route('catalog') }}" class="hover:text-gray-900">Katalog Buku</a></li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST"
+                                onsubmit="return confirm('Apakah Anda yakin ingin keluar?')">
+                                @csrf
+                                <button type="submit"
+                                    class="text-sm bg-cyan-50 text-cyan-700 rounded-md font-medium hover:bg-cyan-100">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <main class="flex-1 container mx-auto px-4 py-8">
+                {{ $slot }}
+            </main>
         </div>
-        <div class="hidden sm:flex items-center gap-6 text-sm text-gray-600">
-            <a href="{{ route('dashboard') }}" class="text-cyan-700 font-medium">Dashboard</a>
-            <a href="{{ route('profile') }}" class="hover:text-gray-900">Profil</a>
-            <a href="{{ route('catalog') }}" class="hover:text-gray-900">Katalog Buku</a>
+        <div class="drawer-side">
+            <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+            <ul class="menu bg-base-200 min-h-full w-80 p-4">
+                <!-- Sidebar content here -->
+                <li><a href="{{ route('dashboard') }}" class="text-cyan-700 font-medium">Dashboard</a></li>
+                <li><a href="{{ route('profile') }}" class="hover:text-gray-900">Profil</a></li>
+                <li><a href="{{ route('catalog') }}" class="hover:text-gray-900">Katalog Buku</a></li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST"
+                        onsubmit="return confirm('Apakah Anda yakin ingin keluar?')">
+                        @csrf
+                        <button type="submit"
+                            class="text-sm bg-cyan-50 text-cyan-700 px-4 py-1.5 rounded-md font-medium hover:bg-cyan-100">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </div>
-        <form action="{{ route('logout') }}" method="POST"
-            onsubmit="return confirm('Apakah Anda yakin ingin keluar?')">
-            @csrf
-            <button type="submit"
-                class="text-sm bg-cyan-50 text-cyan-700 px-4 py-1.5 rounded-md font-medium hover:bg-cyan-100">
-                Logout
-            </button>
-        </form>
-    </nav>
+    </div>
 
-    <main class="flex-1 container mx-auto px-4 py-8">
-        {{ $slot }}
-    </main>
+
 
     <footer class="footer footer-center p-5 bg-base-300 text-base-content text-xs">
         <div>

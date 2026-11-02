@@ -83,7 +83,7 @@
                             <label class="label">
                                 <span class="label-text font-semibold">Sampul Buku (Cover Image)</span>
                             </label>
-                            <input type="file" name="cover_image" value="{{ old('cover_image') }}" placeholder="https://picsum.photos/400/600" class="file-input @error('cover_image') input-error @enderror" accept=".jpg,.jpeg,.png,.gif" />
+                            <input type="file" name="cover_image" value="{{ old('cover_image') }}" class="file-input @error('cover_image') input-error @enderror" accept=".jpg,.jpeg,.png,.gif" />
                             @error('cover_image')
                                 <span class="text-error text-xs mt-1">{{ $message }}</span>
                             @enderror

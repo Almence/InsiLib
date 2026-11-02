@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/catalog', [BookController::class, 'index'])->name('catalog');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/profile', )->name('profile');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/request-borrow/{id}', [LoanController::class, 'showConfirmBorrow'])->name('borrow.confirm');
     Route::post('/request-borrow/{id}', [LoanController::class, 'requestBorrow'])->name('borrow.store');
     Route::post('/admin/loans/{id}/approve', [LoanController::class, 'approveLoan'])->name('admin.loans.approve');
@@ -30,4 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/books/update/{id}', [BookController::class, 'update'])->name('books.update');
     Route::resource('books', BookController::class)->only(['index', 'show']);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::patch('/profile/name', [ProfileController::class, 'updateNameClass'])->name('update.nama');
+    Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('update.password');
+    Route::patch('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('update.avatar');
 });

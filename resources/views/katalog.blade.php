@@ -103,43 +103,44 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                     @forelse($books as $book)
-                        <div class="card bg-base-100 shadow-md border border-base-200">
-                            <figure class="px-4 pt-4">
-                                @if ($book->cover_image)
-                                    @if (\Illuminate\Support\Str::startsWith($book->cover_image, ['http://', 'https://']))
-                                        <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
-                                            class="w-full h-full object-cover rounded-xl" />
+                        
+                            <div class="card bg-base-100 shadow-md border border-base-200">
+                                <figure class="px-4 pt-4">
+                                    @if ($book->cover_image)
+                                        @if (\Illuminate\Support\Str::startsWith($book->cover_image, ['http://', 'https://']))
+                                            <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
+                                                class="w-full h-full object-cover rounded-xl" />
+                                        @else
+                                            <img src="{{ asset('storage/' . $book->cover_image) }}"
+                                                alt="Cover {{ $book->title }}"
+                                                class="w-full h-full object-cover rounded-xl">
+                                        @endif
                                     @else
-                                        <img src="{{ asset('storage/' . $book->cover_image) }}"
-                                            alt="Cover {{ $book->title }}"
+                                        <img src="{{ asset('images/NoImage.jpg') }}" alt="Cover tidak tersedia"
                                             class="w-full h-full object-cover rounded-xl">
                                     @endif
-                                @else
-                                    <img src="{{ asset('images/NoImage.jpg') }}" alt="Cover tidak tersedia"
-                                        class="w-full h-full object-cover rounded-xl">
-                                @endif
-                            </figure>
-                            <div class="card-body p-4 flex flex-row justify-between">
-                                <div>
-                                    <h2 class="card-title text-base font-bold">{{ $book->title }}</h2>
-                                    <p class="text-xs text-base-content/70">{{ $book->author }}</p>
-                                    <p class="text-xs text-base-content/60">Stok: {{ $book->stock }}</p>
-                                </div>
-                                <div class="card-actions flex flex-col justify-end items-end mt-4">
-                                    <button type="button"
-                                        onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()"
-                                        class="btn btn-primary bg-gray-800 text-white px-4 py-1 text-sm focus:outline">
-                                        Detail
-                                    </button>
-                                    @if (Auth::user()->role === 'admin')
-                                        <a href="{{ route('books.edit', $book->id) }}"
+                                </figure>
+                                <div class="card-body p-4 flex flex-row justify-between">
+                                    <div>
+                                        <h2 class="card-title text-base font-bold">{{ $book->title }}</h2>
+                                        <p class="text-xs text-base-content/70">{{ $book->author }}</p>
+                                        <p class="text-xs text-base-content/60">Stok: {{ $book->stock }}</p>
+                                    </div>
+                                    <div class="card-actions flex flex-col justify-end items-end mt-4">
+                                        <button type="button"
+                                            onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()"
                                             class="btn btn-primary bg-gray-800 text-white px-4 py-1 text-sm focus:outline">
-                                            Edit
-                                        </a>
-                                    @endif
+                                            Detail
+                                        </button>
+                                        @if (Auth::user()->role === 'admin')
+                                            <a href="{{ route('books.edit', $book->id) }}"
+                                                class="btn btn-primary bg-gray-800 text-white px-4 py-1 text-sm focus:outline">
+                                                Edit
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
                         <dialog id="book_modal_{{ $book->id }}" class="modal">
                             <div class="modal-box max-w-2xl">
