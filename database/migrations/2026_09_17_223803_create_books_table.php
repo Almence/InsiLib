@@ -19,6 +19,7 @@ return new class extends Migration
             $table->year('year')->nullable();
             $table->integer('stock')->default(0);
             $table->string('cover_image')->nullable();
+            $table->string('place')->nullable();
             $table->timestamps();
         });
     }

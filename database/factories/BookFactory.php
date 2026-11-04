@@ -28,6 +28,11 @@ class BookFactory extends Factory
             'Republika', 'Bentang Pustaka', 'Penerbit Buku Kompas'
         ];
 
+        $place = [
+            'A1 - 1', 'A1 - 2', 'A1 - 3', 'A1 - 4', 'A2 - 1', 'A2 - 2', 'A2 - 3', 'A2 - 4',
+            'A3 - 1', 'A3 - 2', 'A3 - 3', 'A3 - 4'
+        ];
+
         return [
             // Mengambil judul acak + menambahkan variasi volume/edisi
             'title' => fake()->randomElement($judulBuku) . ' - Vol. ' . fake()->numberBetween(1, 5),
@@ -46,6 +51,8 @@ class BookFactory extends Factory
             
             // Gambar sampul buku otomatis (Resolusi 400x600 piksel)
             'cover_image' => 'https://picsum.photos/seed/' . fake()->uuid() . '/400/600',
+
+            'place' => fake()->randomElement($place),
         ];
     }
     public function configure(): static

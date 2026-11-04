@@ -3,13 +3,13 @@
         Profil
     </x-slot:title>
 
-    <div class="mx-2 md:mx-8 my-8">
+    <div class="mx-auto max-w-5xl md:mx-auto my-8">
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <div class="flex flex-col lg:flex-row px-8">
-                    <div class="hover-3d cursor-pointer" onclick="modal_avatar.showModal()">
+                    <div class="aura text-cyan-700 cursor-pointer hover:-translate-y-1 transition duration-600" onclick="modal_avatar.showModal()">
                         <div
-                            class="card-xl bg-base-200 shadow-sm items-center justify-center outline-cyan-800 rounded-xl">
+                            class="card-xl text-base-content h-full w-full bg-base-200 shadow-sm items-center justify-center outline-cyan-800 rounded-xl text-center">
                             <div class="card-body items-center justify-center">
                                 @if (auth()->user()->profile_image)
                                     <img src="{{ asset('storage/' . auth()->user()->profile_image) }}" alt="Foto profil"
@@ -24,15 +24,6 @@
                                 <div class="badge badge-soft badge-primary">{{ auth()->user()->role }}</div>
                             </div>
                         </div>
-
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
                     </div>
 
                     <dialog id="modal_avatar" class="modal">
@@ -53,7 +44,8 @@
                             <li class="p-4 pb-2 text-xl opacity-60 tracking-wide">Edit Profil Anda</li>
 
                             <div class="lg:flex flex-row w-auto">
-                                <button onclick="modal_change_name.showModal()" class="btn h-auto list-row w-full lg:w-1/2">
+                                <button onclick="modal_change_name.showModal()"
+                                    class="btn h-auto list-row w-full lg:w-1/2">
                                     <div><img class="size-10 rounded-box" alt="Tailwind CSS list item"
                                             src="https://www.svgrepo.com/show/505801/user-1.svg" /></div>
                                     <div class="text-start">
@@ -69,7 +61,7 @@
                                         <form action="{{ route('update.nama') }}" method="POST">
                                             @csrf
                                             @method('PATCH')
-    
+
                                             <div class="form-control mb-3">
                                                 <label for="name" class="label"><span class="label-text">Ubah
                                                         Nama</span></label>
@@ -77,7 +69,7 @@
                                                     value="{{ old('name', auth()->user()->name) }}"
                                                     class="input input-bordered w-full" required>
                                             </div>
-    
+
                                             <div class="form-control mb-3">
                                                 <label for="kelas" class="label"><span class="label-text">Ubah
                                                         Kelas</span></label>
@@ -85,7 +77,7 @@
                                                     value="{{ old('name', auth()->user()->kelas) }}"
                                                     class="input input-bordered w-full" required>
                                             </div>
-    
+
                                             <div class="modal-action">
                                                 <button type="submit" class="btn btn-success">Simpan Perubahan</button>
                                                 <button type="button" class="btn"
@@ -94,8 +86,9 @@
                                         </form>
                                     </div>
                                 </dialog>
-    
-                                <button onclick="modal_change_password.showModal()" class="btn list-row h-auto w-full lg:w-1/2">
+
+                                <button onclick="modal_change_password.showModal()"
+                                    class="btn list-row h-auto w-full lg:w-1/2" disabled="disabled">
                                     <div><img class="size-10 rounded-box" alt="Tailwind CSS list item"
                                             src="https://www.svgrepo.com/show/532324/lock-slash.svg" /></div>
                                     <div class="text-start">
@@ -111,21 +104,21 @@
                                         <form action="{{ route('update.password') }}" method="POST">
                                             @csrf
                                             @method('PATCH')
-    
+
                                             <div class="form-control mb-3">
                                                 <label for="password" class="label"><span class="label-text">Ubah
                                                         Password</span></label>
                                                 <input type="password" name="password" placeholder="******"
                                                     class="input input-bordered w-full" required>
                                             </div>
-    
+
                                             <div class="form-control mb-3">
                                                 <label for="confirm" class="label"><span class="label-text">Konfirmasi
                                                         Password</span></label>
                                                 <input type="password" name="confirm" placeholder="******"
                                                     class="input input-bordered w-full" required>
                                             </div>
-    
+
                                             <div class="modal-action">
                                                 <button type="submit" class="btn btn-success">Simpan Perubahan</button>
                                                 <button type="button" class="btn"
@@ -136,8 +129,18 @@
                                 </dialog>
                             </div>
 
+                            <div role="warning" class="alert alert-warning ">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="h-6 w-6 shrink-0 stroke-current">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>Hubungi Admin/Petugas perpustakaan untuk mengganti password akun.</span>
+                            </div>
 
-                            <form action="{{ route('update.avatar') }}" class="lg:flex flex-row w-auto" method="POST"
+
+                            <form action="{{ route('update.avatar') }}"
+                                class="lg:grid lg:grid-cols-2 flex flex-col w-auto" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
@@ -154,14 +157,18 @@
                                     </div>
                                 </div>
 
-                                <input type="file" name="profile_image" value="{{ old('profile_image') }}"
-                                    class="file-input @error('profile_image') input-error @enderror hover:bg-base-300 w-full h-full"
-                                    accept=".jpg,.jpeg,.png,.gif" />
-                                @error('profile_image')
-                                    <span class="text-error text-xs m-1">{{ $message }}</span>
-                                @enderror
+                                <div class="flex flex-col">
+                                    <input type="file" name="profile_image" value="{{ old('profile_image') }}"
+                                        class="file-input @error('profile_image') input-error @enderror hover:bg-base-300 w-full h-full"
+                                        accept=".jpg,.jpeg,.png,.gif" required />
+                                    @error('profile_image')
+                                        <span class="text-error text-xs m-1">{{ $message }}</span>
+                                    @enderror
 
-                                <button type="submit" class="btn h-full w-full lg:w-auto ">Simpan Gambar</button>
+                                    <button type="submit"
+                                        class="btn bg-cyan-700 text-white h-auto w-full lg:w-auto ">Simpan
+                                        Gambar</button>
+                                </div>
                             </form>
                         </ul>
                     </div>

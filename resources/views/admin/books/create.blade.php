@@ -6,11 +6,12 @@
     <div class="mx-auto max-w-4xl my-8 px-4">
         <div class="card bg-base-100 shadow-xl border border-base-200">
             <div class="card-body p-6 md:p-8">
-                
+
                 <div class="flex justify-between items-center mb-6 border-b border-base-200 pb-4">
                     <div>
                         <h1 class="text-2xl md:text-3xl font-bold">Tambah Buku Baru</h1>
-                        <p class="text-xs text-base-content/70 mt-1">Isi formulir di bawah ini untuk menambahkan koleksi buku baru ke sistem InsiLib.</p>
+                        <p class="text-xs text-base-content/70 mt-1">Isi formulir di bawah ini untuk menambahkan koleksi
+                            buku baru ke sistem InsiLib.</p>
                     </div>
                     <a href="{{ route('catalog') }}" class="btn btn-ghost btn-sm">← Kembali</a>
                 </div>
@@ -23,7 +24,9 @@
                         <label class="label">
                             <span class="label-text font-semibold">Judul Buku <span class="text-error">*</span></span>
                         </label>
-                        <input type="text" name="title" value="{{ old('title') }}" placeholder="Contoh: Laskar Pelangi" class="input input-bordered w-full @error('title') input-error @enderror" required />
+                        <input type="text" name="title" value="{{ old('title') }}"
+                            placeholder="Contoh: Laskar Pelangi"
+                            class="input input-bordered w-full @error('title') input-error @enderror" required />
                         @error('title')
                             <span class="text-error text-xs mt-1">{{ $message }}</span>
                         @enderror
@@ -34,9 +37,12 @@
                         <!-- Penulis -->
                         <div class="form-control w-full">
                             <label class="label">
-                                <span class="label-text font-semibold">Penulis / Pengarang <span class="text-error">*</span></span>
+                                <span class="label-text font-semibold">Penulis / Pengarang <span
+                                        class="text-error">*</span></span>
                             </label>
-                            <input type="text" name="author" value="{{ old('author') }}" placeholder="Contoh: Andrea Hirata" class="input input-bordered w-full @error('author') input-error @enderror" required />
+                            <input type="text" name="author" value="{{ old('author') }}"
+                                placeholder="Contoh: Andrea Hirata"
+                                class="input input-bordered w-full @error('author') input-error @enderror" required />
                             @error('author')
                                 <span class="text-error text-xs mt-1">{{ $message }}</span>
                             @enderror
@@ -47,7 +53,10 @@
                             <label class="label">
                                 <span class="label-text font-semibold">Penerbit <span class="text-error">*</span></span>
                             </label>
-                            <input type="text" name="publisher" value="{{ old('publisher') }}" placeholder="Contoh: Bentang Pustaka" class="input input-bordered w-full @error('publisher') input-error @enderror" required />
+                            <input type="text" name="publisher" value="{{ old('publisher') }}"
+                                placeholder="Contoh: Bentang Pustaka"
+                                class="input input-bordered w-full @error('publisher') input-error @enderror"
+                                required />
                             @error('publisher')
                                 <span class="text-error text-xs mt-1">{{ $message }}</span>
                             @enderror
@@ -56,9 +65,12 @@
                         <!-- Tahun Terbit -->
                         <div class="form-control w-full">
                             <label class="label">
-                                <span class="label-text font-semibold">Tahun Terbit <span class="text-error">*</span></span>
+                                <span class="label-text font-semibold">Tahun Terbit <span
+                                        class="text-error">*</span></span>
                             </label>
-                            <input type="number" name="year" value="{{ old('year') }}" placeholder="2024" min="1900" max="{{ date('Y') }}" class="input input-bordered w-full @error('year') input-error @enderror" required />
+                            <input type="number" name="year" value="{{ old('year') }}" placeholder="2024"
+                                min="1900" max="{{ date('Y') }}"
+                                class="input input-bordered w-full @error('year') input-error @enderror" required />
                             @error('year')
                                 <span class="text-error text-xs mt-1">{{ $message }}</span>
                             @enderror
@@ -70,21 +82,36 @@
                         <!-- Stok -->
                         <div class="form-control w-full md:col-span-1">
                             <label class="label">
-                                <span class="label-text font-semibold">Jumlah Stok <span class="text-error">*</span></span>
+                                <span class="label-text font-semibold">Jumlah Stok <span
+                                        class="text-error">*</span></span>
                             </label>
-                            <input type="number" name="stock" value="{{ old('stock', 5) }}" min="0" class="input input-bordered w-full @error('stock') input-error @enderror" required />
+                            <input type="number" name="stock" value="{{ old('stock', 5) }}" min="0"
+                                class="input input-bordered w-full @error('stock') input-error @enderror" required />
                             @error('stock')
                                 <span class="text-error text-xs mt-1">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <!-- URL Gambar Sampul -->
-                        <div class="form-control w-full md:col-span-2">
+                        <div class="form-control w-full md:col-span-1">
                             <label class="label">
                                 <span class="label-text font-semibold">Sampul Buku (Cover Image)</span>
                             </label>
-                            <input type="file" name="cover_image" value="{{ old('cover_image') }}" class="file-input @error('cover_image') input-error @enderror" accept=".jpg,.jpeg,.png,.gif" />
+                            <input type="file" name="cover_image" value="{{ old('cover_image') }}"
+                                class="input input-file w-full @error('cover_image') input-error @enderror"
+                                accept=".jpg,.jpeg,.png,.gif" />
                             @error('cover_image')
+                                <span class="text-error text-xs mt-1">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-control w-full md:col-span-1">
+                            <label class="label">
+                                <span class="label-text font-semibold">Letak Rak</span>
+                            </label>
+                            <input type="text" name="place" value="{{ old('place') }}"
+                                class="input input-bordered w-full @error('cover_image') input-error @enderror"/>
+                            @error('place')
                                 <span class="text-error text-xs mt-1">{{ $message }}</span>
                             @enderror
                         </div>
@@ -93,15 +120,16 @@
                     <!-- Kategori Buku (Many-to-Many Checkbox Grid) -->
                     <div class="form-control w-full">
                         <label class="label">
-                            <span class="label-text font-semibold">Pilih Kategori (Bisa Pilih Banyak) <span class="text-error">*</span></span>
+                            <span class="label-text font-semibold">Pilih Kategori (Bisa Pilih Banyak) <span
+                                    class="text-error">*</span></span>
                         </label>
                         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-1">
-                            @foreach($categories as $category)
-                                <label class="label cursor-pointer justify-start gap-3 bg-base-200/50 p-3 rounded-xl border border-base-300 hover:bg-base-200 transition">
-                                    <input type="checkbox" name="category_ids[]" value="{{ $category->id }}" 
+                            @foreach ($categories as $category)
+                                <label
+                                    class="label cursor-pointer justify-start gap-3 bg-base-200/50 p-3 rounded-xl border border-base-300 hover:bg-base-200 transition">
+                                    <input type="checkbox" name="category_ids[]" value="{{ $category->id }}"
                                         class="checkbox checkbox-primary checkbox-sm"
-                                        {{ is_array(old('category_ids')) && in_array($category->id, old('category_ids')) ? 'checked' : '' }}
-                                    />
+                                        {{ is_array(old('category_ids')) && in_array($category->id, old('category_ids')) ? 'checked' : '' }} />
                                     <span class="label-text text-xs font-medium">{{ $category->name }}</span>
                                 </label>
                             @endforeach

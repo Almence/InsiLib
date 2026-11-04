@@ -18,6 +18,7 @@ class Book extends Model
         "year",
         "stock",
         'cover_image',
+        'place',
     ];
 
     public function categories()

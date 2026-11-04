@@ -4,153 +4,242 @@
         Katalog Buku
     </x-slot:title>
 
-    <div class="mx-2 md:mx-8 my-8">
-        <div class="card bg-base-100 shadow-xl">
-            <div class="card-body">
-                <h1 class="text-3xl font-bold mb-6">Welcome to InsiLib</h1>
-
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                    <h1 class="text-3xl font-bold">Katalog InsiLib</h1>
-
-                    <form method="GET" action="{{ route('catalog') }}"
-                        class="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
+    <div class="my-8 md:my-10">
+        <div class="card overflow-hidden border border-base-200 bg-base-100 shadow-xl">
+            <div class="card-body gap-6 p-5 md:p-8">
+                <div class="rounded-2xl border border-base-200 bg-base-200/50 p-4 md:p-5">
+                    <form method="GET" action="{{ route('catalog') }}">
 
                         <!-- Kolom Search (Menggunakan DaisyUI Join) -->
-                        <div class="join w-full md:w-auto gap-1">
-                            <input type="text" name="search" value="{{ request('search') }}"
-                                placeholder="Cari judul atau pengarang..."
-                                class="input input-bordered join-item w-full md:w-80" />
-                            <button type="submit"
-                                class="btn btn-primary join-item bg-gray-800 text-white px-4">Cari</button>
-                            @if (request('search'))
-                                <a href="{{ route('catalog') }}"
-                                    class="btn btn-ghost join-item bg-gray-800 text-white px-4">Reset</a>
-                            @endif
-                        </div>
-
-                        <div>
-                            <label for="sort_by" class="text-sm font-medium">Urutkan:</label>
-                            <select name="sort_by" id="sort_by" onchange="this.form.submit()"
-                                class="select select-bordered select-sm">
-                                <option value="title" {{ request('sort_by', 'title') == 'title' ? 'selected' : '' }}>
-                                    Judul
-                                </option>
-                                <option value="author" {{ request('sort_by') == 'author' ? 'selected' : '' }}>Pengarang
-                                </option>
-                                <option value="year" {{ request('sort_by') == 'year' ? 'selected' : '' }}>Tahun Terbit
-                                </option>
-                                <option value="stock" {{ request('sort_by') == 'stock' ? 'selected' : '' }}>Stok
-                                </option>
-                                <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>
-                                    Tanggal ditambahkan
-                                </option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="sortDirection" class="text-sm font-medium">Arah Urutan:</label>
-                            <select name="sortDirection" id="sortDirection" onchange="this.form.submit()"
-                                class="select select-bordered select-sm">
-                                <option value="asc" {{ request('sortDirection', 'asc') == 'asc' ? 'selected' : '' }}>
-                                    Menaik
-                                </option>
-                                <option value="desc" {{ request('sortDirection') == 'desc' ? 'selected' : '' }}>
-                                    Menurun
-                                </option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="filter_by" class="text-sm font-medium">Filter Kategori:</label>
-                            <select name="filter_by" id="filter_by" onchange="this.form.submit()"
-                                class="select select-bordered select-sm">
-                                <option value="all" {{ request('filter_by', 'all') == 'all' ? 'selected' : '' }}>
-                                    Semua
-                                </option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ request('filter_by') == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <!-- Dropdown Per Page -->
-                        <div>
-                            <label for="per_page" class="text-sm font-medium">Tampilkan Per Halaman:</label>
-                            <select name="per_page" id="per_page" onchange="this.form.submit()"
-                                class="select select-bordered select-sm">
-                                <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10 buku
-                                </option>
-                                <option value="20" {{ request('per_page', 20) == 20 ? 'selected' : '' }}>20 buku
-                                </option>
-                                <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50 buku
-                                </option>
-                                <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100 buku
-                                </option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="divider border-solid md:border-dotted">
-                    @if (request('search'))
-                        <p class="text-sm text-gray-600">Hasil pencarian untuk: <u><span
-                                    class="font-semibold">{{ request('search') }}</span></u></p>
-                    @endif
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                    @forelse($books as $book)
-                        
-                            <div class="card bg-base-100 shadow-md border border-base-200">
-                                <figure class="px-4 pt-4">
-                                    @if ($book->cover_image)
-                                        @if (\Illuminate\Support\Str::startsWith($book->cover_image, ['http://', 'https://']))
-                                            <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
-                                                class="w-full h-full object-cover rounded-xl" />
-                                        @else
-                                            <img src="{{ asset('storage/' . $book->cover_image) }}"
-                                                alt="Cover {{ $book->title }}"
-                                                class="w-full h-full object-cover rounded-xl">
-                                        @endif
-                                    @else
-                                        <img src="{{ asset('images/NoImage.jpg') }}" alt="Cover tidak tersedia"
-                                            class="w-full h-full object-cover rounded-xl">
+                        <div class="space-y-2 flex flex-col lg:flex-row w-full justify-between">
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-[0.2em] text-cyan-700">Perpustakaan
+                                    Digital InsiLib
+                                </p>
+                                <h1 class="text-3xl font-bold tracking-tight md:text-4xl">Jelajahi Koleksi Buku</h1>
+                                <p class="max-w-2xl text-sm leading-relaxed text-base-content/70 md:text-base">
+                                    Temukan bacaan berikutnya dengan mencari judul, penulis, atau kategori favoritmu.
+                                </p>
+                            </div>
+                            <div class="space-y-1 lg:col-span-2 lg:items-end">
+                                <label for="search"
+                                    class="text-xs font-semibold uppercase tracking-wide text-base-content/60">
+                                    Cari koleksi
+                                </label>
+                                <div class="join w-full">
+                                    <input type="text" name="search" id="search" value="{{ request('search') }}"
+                                        placeholder="Cari judul atau pengarang..."
+                                        class="input input-bordered join-item min-w-0 flex-1 bg-base-100 focus:border-cyan-700" />
+                                    <button type="submit"
+                                        class="btn join-item border-cyan-700 bg-cyan-700 px-4 text-white hover:border-cyan-800 hover:bg-cyan-800">
+                                        <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path
+                                                    d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                                                    stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                    @if (request('search'))
+                                        <a href="{{ route('catalog') }}"
+                                            class="btn join-item border border-cyan-700 bg-base-100 px-4 text-cyan-700 hover:bg-cyan-50">
+                                            <svg fill="#000000" viewBox="0 0 1920 1920"
+                                                xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M960 0v112.941c467.125 0 847.059 379.934 847.059 847.059 0 467.125-379.934 847.059-847.059 847.059-467.125 0-847.059-379.934-847.059-847.059 0-267.106 126.607-515.915 338.824-675.727v393.374h112.94V112.941H0v112.941h342.89C127.058 407.38 0 674.711 0 960c0 529.355 430.645 960 960 960s960-430.645 960-960S1489.355 0 960 0"
+                                                        fill-rule="evenodd"></path>
+                                                </g>
+                                            </svg>
+                                        </a>
                                     @endif
-                                </figure>
-                                <div class="card-body p-4 flex flex-row justify-between">
-                                    <div>
-                                        <h2 class="card-title text-base font-bold">{{ $book->title }}</h2>
-                                        <p class="text-xs text-base-content/70">{{ $book->author }}</p>
-                                        <p class="text-xs text-base-content/60">Stok: {{ $book->stock }}</p>
-                                    </div>
-                                    <div class="card-actions flex flex-col justify-end items-end mt-4">
-                                        <button type="button"
-                                            onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()"
-                                            class="btn btn-primary bg-gray-800 text-white px-4 py-1 text-sm focus:outline">
-                                            Detail
-                                        </button>
-                                        @if (Auth::user()->role === 'admin')
-                                            <a href="{{ route('books.edit', $book->id) }}"
-                                                class="btn btn-primary bg-gray-800 text-white px-4 py-1 text-sm focus:outline">
-                                                Edit
-                                            </a>
-                                        @endif
-                                    </div>
                                 </div>
                             </div>
 
+                        </div>
+                        <div class="grid grid-cols-1 items-end gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:mt-4">
+
+                            <div class="space-y-1">
+                                <label for="sort_by"
+                                    class="text-xs font-semibold uppercase tracking-wide text-base-content/60">Urutkan</label>
+                                <select name="sort_by" id="sort_by" onchange="this.form.submit()"
+                                    class="select select-bordered select-sm w-full bg-base-100 focus:border-cyan-700">
+                                    <option value="title"
+                                        {{ request('sort_by', 'title') == 'title' ? 'selected' : '' }}>
+                                        Judul
+                                    </option>
+                                    <option value="author" {{ request('sort_by') == 'author' ? 'selected' : '' }}>
+                                        Pengarang
+                                    </option>
+                                    <option value="year" {{ request('sort_by') == 'year' ? 'selected' : '' }}>Tahun
+                                        Terbit
+                                    </option>
+                                    <option value="stock" {{ request('sort_by') == 'stock' ? 'selected' : '' }}>Stok
+                                    </option>
+                                    <option value="created_at"
+                                        {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>
+                                        Tanggal ditambahkan
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="space-y-1">
+                                <label for="sortDirection"
+                                    class="text-xs font-semibold uppercase tracking-wide text-base-content/60">Arah
+                                    Urutan</label>
+                                <select name="sortDirection" id="sortDirection" onchange="this.form.submit()"
+                                    class="select select-bordered select-sm w-full bg-base-100 focus:border-cyan-700">
+                                    <option value="asc"
+                                        {{ request('sortDirection', 'asc') == 'asc' ? 'selected' : '' }}>
+                                        Menaik
+                                    </option>
+                                    <option value="desc" {{ request('sortDirection') == 'desc' ? 'selected' : '' }}>
+                                        Menurun
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="space-y-1">
+                                <label for="filter_by"
+                                    class="text-xs font-semibold uppercase tracking-wide text-base-content/60">Kategori</label>
+                                <select name="filter_by" id="filter_by" onchange="this.form.submit()"
+                                    class="select select-bordered select-sm w-full bg-base-100 focus:border-cyan-700">
+                                    <option value="all"
+                                        {{ request('filter_by', 'all') == 'all' ? 'selected' : '' }}>
+                                        Semua
+                                    </option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ request('filter_by') == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Dropdown Per Page -->
+                            <div class="space-y-1">
+                                <label for="per_page"
+                                    class="text-xs font-semibold uppercase tracking-wide text-base-content/60">Buku per
+                                    halaman</label>
+                                <select name="per_page" id="per_page" onchange="this.form.submit()"
+                                    class="select select-bordered select-sm w-full bg-base-100 focus:border-cyan-700">
+                                    <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10 buku
+                                    </option>
+                                    <option value="20" {{ request('per_page', 20) == 20 ? 'selected' : '' }}>20
+                                        buku
+                                    </option>
+                                    <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50 buku
+                                    </option>
+                                    <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100 buku
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="divider my-0 border-solid md:border-dotted">
+                    @if (request('search'))
+                        <p class="text-sm text-base-content/70">Hasil pencarian untuk:
+                            <span class="font-semibold text-cyan-700">{{ request('search') }}</span>
+                        </p>
+                    @endif
+                </div>
+
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    @forelse($books as $book)
+
+                        <div
+                            class="card border border-base-200 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-cyan-700/30 hover:shadow-lg">
+                            <div class="hover-3d">
+                                <figure class="aspect-[3/4] overflow-hidden bg-base-200 px-4 pt-4">
+                                    @if ($book->cover_image)
+                                        @if (\Illuminate\Support\Str::startsWith($book->cover_image, ['http://', 'https://']))
+                                            <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
+                                                class="h-full w-full rounded-xl object-cover" />
+                                        @else
+                                            <img src="{{ asset('storage/' . $book->cover_image) }}"
+                                                alt="Cover {{ $book->title }}"
+                                                class="h-full w-full rounded-xl object-cover">
+                                        @endif
+                                    @else
+                                        <img src="{{ asset('images/NoImage.jpg') }}" alt="Cover tidak tersedia"
+                                            class="h-full w-full rounded-xl object-cover">
+                                    @endif
+                                </figure>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="card-body flex flex-row justify-between gap-3 p-4">
+                                <div>
+                                    <h2 class="card-title text-base font-bold leading-snug">{{ $book->title }}</h2>
+                                    <p class="text-xs text-base-content/70">{{ $book->author }}</p>
+                                    <p class="mt-2 text-xs text-base-content/60">Stok: {{ $book->stock }}</p>
+                                </div>
+                                <div class="card-actions flex flex-col justify-end items-end">
+                                    <button type="button"
+                                        onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()"
+                                        class="btn border-cyan-700 bg-cyan-700 px-4 py-1 text-sm text-white hover:border-cyan-800 hover:bg-cyan-800">
+                                        Detail
+                                    </button>
+                                    @if (Auth::user()->role === 'admin')
+                                        <a href="{{ route('books.edit', $book->id) }}"
+                                            class="btn border-cyan-700 bg-cyan-700 px-4 py-1 text-sm text-white hover:border-cyan-800 hover:bg-cyan-800">
+                                            Edit
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
                         <dialog id="book_modal_{{ $book->id }}" class="modal">
                             <div class="modal-box max-w-2xl">
-                                <h3 class="font-bold text-xl mb-4">{{ $book->title }}</h3>
+                                <div class="flex flex-row justify-between">
+                                    <h3 class="mb-4 text-xl font-bold">{{ $book->title }}</h3>
+
+                                    <div class="card-actions justify-end">
+                                        <form method="dialog">
+                                            <button class="btn btn-square btn-sm">
+                                                <svg aria-label="Close" xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
                                     <!-- Cover Buku di Modal -->
-                                    <div>
+                                    <div class="hover-3d">
                                         <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
                                             class="w-full h-full object-cover rounded-lg shadow-md" />
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
                                     </div>
 
                                     <!-- Informasi Detail Buku -->
@@ -172,7 +261,7 @@
                                                 <!-- Mengambil nama kategori dari relasi database -->
                                                 @forelse ($book->categories as $category)
                                                     <span
-                                                        class="badge badge-outline badge-sm bg-gray-200">{{ $category->name ?? 'Umum' }}</span>
+                                                        class="badge badge-sm border-cyan-200 bg-cyan-50 text-cyan-800">{{ $category->name ?? 'Umum' }}</span>
                                                 @empty
                                                     <span class="text-xs text-base-content/50 italic">Tanpa
                                                         Kategori</span>
@@ -188,18 +277,20 @@
                                                     <span class="badge badge-error text-white">Stok Habis</span>
                                                 @endif
                                             </div>
+                                            <div>
+                                                <span class="text-base-content/60 block">Letak Rak</span>
+                                                <span class="font-semibold text-base">{{ $book->place }}</span>
+                                            </div>
                                         </div>
 
-                                        <div class="modal-action mt-6 justify-end">
+                                        <div class="modal-action flex flex-col items-end mt-6 justify-end">
                                             @if ($book->stock > 0)
-                                                <!-- Tombol Peminjaman (Persiapan fitur loan berikutnya) -->
-                                                <button type="button" class="btn btn-success text-white">Pinjam Buku
-                                                    Ini</button>
+                                                <div class="card w-full bg-cyan-700 text-white shadow-sm">
+                                                    <div class="card-body">
+                                                        <p>Stok buku tersedia. Datangi Perpustakaan untuk meminjam.</p>
+                                                    </div>
+                                                </div>
                                             @endif
-
-                                            <form method="dialog">
-                                                <button class="btn">Tutup</button>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +303,7 @@
                         </dialog>
                     @empty
                         <div class="col-span-full text-center py-8">
-                            <p class="text-base-content/60">No books available.</p>
+                            <p class="text-base-content/60">Belum ada buku yang tersedia.</p>
                         </div>
                     @endforelse
                 </div>
