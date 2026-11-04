@@ -38,7 +38,7 @@
 
                     <div class="divider divider-horizontal"></div>
 
-                    <div class="card-body justify-center">
+                    <div class="lg:card-body justify-center">
                         <ul class="list bg-base-100 rounded-box shadow-md">
 
                             <li class="p-4 pb-2 text-xl opacity-60 tracking-wide">Edit Profil Anda</li>
