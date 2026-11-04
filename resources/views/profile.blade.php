@@ -7,16 +7,16 @@
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <div class="flex flex-col lg:flex-row px-8">
-                    <div class="aura text-cyan-700 cursor-pointer hover:-translate-y-1 transition duration-600" onclick="modal_avatar.showModal()">
+                    <div class="text-cyan-700 cursor-pointer hover:-translate-y-1 transition duration-600" onclick="modal_avatar.showModal()">
                         <div
                             class="card-xl text-base-content h-full w-full bg-base-200 shadow-sm items-center justify-center outline-cyan-800 rounded-xl text-center">
                             <div class="card-body items-center justify-center">
                                 @if (auth()->user()->profile_image)
                                     <img src="{{ asset('storage/' . auth()->user()->profile_image) }}" alt="Foto profil"
-                                        class="w-20 h-20 rounded-full object-cover">
+                                        class="w-20 h-20 rounded-full object-cover aura">
                                 @else
                                     <img src="{{ asset('images/default-avatar.png') }}" alt="Default"
-                                        class="w-20 h-20 rounded-full object-cover">
+                                        class="w-20 h-20 rounded-full object-cover aura">
                                 @endif
 
                                 <h3 class="card-title">{{ auth()->user()->name }}</h3>

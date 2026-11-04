@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="lofi">
+<html lang="id" data-theme="">
 
 <head>
     <meta charset="UTF-8">
@@ -37,7 +37,7 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle lg:hidden" />
         <div class="drawer-content flex flex-col">
             <!-- Navbar -->
-            <div id="up" class="navbar border-b border-base-200 bg-base-100 shadow-sm">
+            <div id="up" class="navbar border-b border-base-200 bg-base-100 shadow-sm no-print">
                 <div class="flex-none lg:hidden">
                     <label for="my-drawer-2" aria-label="open sidebar" class="btn btn-square btn-ghost drawer-button">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -134,7 +134,7 @@
         </div>
     </div>
 
-    <div class="fab">
+    <div class="fab no-print">
         <a href="#up" class="btn btn-lg btn-circle bg-cyan-700 text-white">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -149,7 +149,7 @@
 
 
 
-    <footer class="border-t border-base-300 bg-base-100">
+    <footer class="border-t border-base-300 bg-base-100 no-print">
         <div class="footer mx-auto max-w-7xl gap-10 px-6 py-10 text-base-content sm:footer-horizontal md:px-8">
             <aside class="max-w-sm">
                 <a href="{{ route('catalog') }}" class="flex items-center gap-3">

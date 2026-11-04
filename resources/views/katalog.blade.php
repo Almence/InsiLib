@@ -101,7 +101,8 @@
                                         {{ request('sortDirection', 'asc') == 'asc' ? 'selected' : '' }}>
                                         Menaik
                                     </option>
-                                    <option value="desc" {{ request('sortDirection') == 'desc' ? 'selected' : '' }}>
+                                    <option value="desc"
+                                        {{ request('sortDirection') == 'desc' ? 'selected' : '' }}>
                                         Menurun
                                     </option>
                                 </select>
@@ -161,7 +162,6 @@
 
                         <div
                             class="card border border-base-200 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-cyan-700/30 hover:shadow-lg">
-                            <div class="hover-3d">
                                 <figure class="aspect-[3/4] overflow-hidden bg-base-200 px-4 pt-4">
                                     @if ($book->cover_image)
                                         @if (\Illuminate\Support\Str::startsWith($book->cover_image, ['http://', 'https://']))
@@ -177,15 +177,6 @@
                                             class="h-full w-full rounded-xl object-cover">
                                     @endif
                                 </figure>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
                             <div class="card-body flex flex-row justify-between gap-3 p-4">
                                 <div>
                                     <h2 class="card-title text-base font-bold leading-snug">{{ $book->title }}</h2>

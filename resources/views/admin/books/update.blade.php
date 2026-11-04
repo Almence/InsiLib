@@ -16,7 +16,7 @@
                     <a href="{{ route('catalog') }}" class="btn btn-ghost btn-sm">← Kembali</a>
                 </div>
 
-                <form action="{{ route('books.update', $book->id) }}" method="POST" class="space-y-6">
+                <form action="{{ route('books.update', $book->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                     @csrf
                     @method('POST')
 
@@ -96,7 +96,7 @@
                             <label class="label">
                                 <span class="label-text font-semibold">Sampul Buku (Cover Image)</span>
                             </label>
-                            <input type="file" name="cover_image"
+                            <input type="file" name="cover_image" 
                                 value="{{ old('cover_image', $book->cover_image) }}"
                                 class="input input-file w-full @error('cover_image') input-error @enderror" 
                                 accept=".jpg,.jpeg,.png,.gif"/>
@@ -144,7 +144,7 @@
 
                     <!-- Tombol Aksi -->
                     <div class="flex justify-end gap-3 pt-4 border-t border-base-200">
-                        <a href="{{ route('dashboard') }}" class="btn btn-ghost">Batal</a>
+                        <a href="{{ route('catalog') }}" class="btn btn-ghost">Batal</a>
                         <button type="submit" class="btn btn-primary">✏️ Perbarui Data Buku</button>
                     </div>
                 </form>

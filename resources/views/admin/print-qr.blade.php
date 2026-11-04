@@ -215,6 +215,10 @@
                 display: none !important;
             }
 
+            .printed {
+                display: contents !important;
+            }
+
             body {
                 background: white !important;
             }

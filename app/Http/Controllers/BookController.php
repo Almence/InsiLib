@@ -70,7 +70,7 @@ class BookController extends Controller
         $image = null;
 
         if ($request->hasFile('cover_image')) {
-            $imagePath = $request->file('cover_image')->store('inventories', 'public');
+            $imagePath = $request->file('cover_image')->store('covers', 'public');
         }
 
         $book = Book::create([
@@ -79,7 +79,7 @@ class BookController extends Controller
             'publisher' => $validated['publisher'],
             'year' => $validated['year'],
             'stock' => $validated['stock'],
-            'cover_image' => $imagePath,
+            'cover_image' => $imagePath ?? null,
         ]);
 
         $book->categories()->attach($request->category_ids);
@@ -119,24 +119,39 @@ class BookController extends Controller
             'publisher' => 'required|string|max:255',
             'year' => 'required|numeric|digits:4',
             'stock' => 'required|integer|min:0',
-            'cover_image' => 'nullable|url',
+            'cover_image' => 'nullable|image|mimes:png,jpg,jpeg,gif|max:2048',
             'category_ids' => 'required|array|min:1',
             'category_ids.*' => 'exists:categories,id',
         ]);
 
-        // 2. Update Data Utama Buku
-        $book->update([
+        // Siapkan data dasar yang mau di-update
+        $updateData = [
             'title' => $validated['title'],
             'author' => $validated['author'],
             'publisher' => $validated['publisher'],
             'year' => $validated['year'],
             'stock' => $validated['stock'],
-            'cover_image' => $validated['cover_image'] ?? null,
-        ]);
+        ];
 
+        // Cek apakah user mengupload gambar cover baru
+        if ($request->hasFile('cover_image')) {
+            // Opsional: Hapus gambar lama jika ada di storage
+            if ($book->cover_image && \Storage::disk('public')->exists($book->cover_image)) {
+                \Storage::disk('public')->delete($book->cover_image);
+            }
+
+            // Simpan gambar baru
+            $path = $request->file('cover_image')->store('covers', 'public');
+            $updateData['cover_image'] = $path; // Masukkan path baru ke data update
+        }
+
+        // Eksekusi update data buku
+        $book->update($updateData);
+
+        // Sinkronisasi kategori (Many-to-Many)
         $book->categories()->sync($request->category_ids);
 
-        return redirect()->route('dashboard')->with('success', 'Buku berhasil diperbarui!');
+        return redirect()->route('catalog')->with('success', 'Buku berhasil diperbarui!');
     }
 
     /**
