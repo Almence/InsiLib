@@ -32,7 +32,7 @@
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-base-200 font-sans">
+<body class="min-h-screen flex flex-col bg-base-200 font-sans bg-[url(https://i.pinimg.com/736x/14/01/29/1401290decdefa3bfbba3d90bdf41d3c.jpg)] bg-center bg-repeat">
     <div class="drawer flex-1">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle lg:hidden" />
         <div class="drawer-content flex flex-col">

@@ -48,8 +48,8 @@
                                     @if (request('search'))
                                         <a href="{{ route('catalog') }}"
                                             class="btn join-item border border-cyan-700 bg-base-100 px-4 text-cyan-700 hover:bg-cyan-50">
-                                            <svg fill="#000000" viewBox="0 0 1920 1920"
-                                                xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
+                                            <svg fill="#000000" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg"
+                                                class="w-4 h-4">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                     stroke-linejoin="round"></g>
@@ -72,8 +72,7 @@
                                     class="text-xs font-semibold uppercase tracking-wide text-base-content/60">Urutkan</label>
                                 <select name="sort_by" id="sort_by" onchange="this.form.submit()"
                                     class="select select-bordered select-sm w-full bg-base-100 focus:border-cyan-700">
-                                    <option value="title"
-                                        {{ request('sort_by', 'title') == 'title' ? 'selected' : '' }}>
+                                    <option value="title" {{ request('sort_by', 'title') == 'title' ? 'selected' : '' }}>
                                         Judul
                                     </option>
                                     <option value="author" {{ request('sort_by') == 'author' ? 'selected' : '' }}>
@@ -84,8 +83,7 @@
                                     </option>
                                     <option value="stock" {{ request('sort_by') == 'stock' ? 'selected' : '' }}>Stok
                                     </option>
-                                    <option value="created_at"
-                                        {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>
+                                    <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>
                                         Tanggal ditambahkan
                                     </option>
                                 </select>
@@ -97,8 +95,7 @@
                                     Urutan</label>
                                 <select name="sortDirection" id="sortDirection" onchange="this.form.submit()"
                                     class="select select-bordered select-sm w-full bg-base-100 focus:border-cyan-700">
-                                    <option value="asc"
-                                        {{ request('sortDirection', 'asc') == 'asc' ? 'selected' : '' }}>
+                                    <option value="asc" {{ request('sortDirection', 'asc') == 'asc' ? 'selected' : '' }}>
                                         Menaik
                                     </option>
                                     <option value="desc" {{ request('sortDirection') == 'desc' ? 'selected' : '' }}>
@@ -112,14 +109,11 @@
                                     class="text-xs font-semibold uppercase tracking-wide text-base-content/60">Kategori</label>
                                 <select name="filter_by" id="filter_by" onchange="this.form.submit()"
                                     class="select select-bordered select-sm w-full bg-base-100 focus:border-cyan-700">
-                                    <option value="all"
-                                        {{ request('filter_by', 'all') == 'all' ? 'selected' : '' }}>
+                                    <option value="all" {{ request('filter_by', 'all') == 'all' ? 'selected' : '' }}>
                                         Semua
                                     </option>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}"
-                                            {{ request('filter_by') == $category->id ? 'selected' : '' }}>
-                                            {{ $category->name }}
+                                        <option value="{{ $category->id }}" {{ request('filter_by') == $category->id ? 'selected' : '' }}>{{ $category->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -146,6 +140,25 @@
                         </div>
 
                     </form>
+                    <div class="flex w-full flex-col lg:flex-row mt-2 gap-4">
+                        <div role="alert" class="alert alert-info lg:w-1/2 alert-outline">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="h-6 w-6 shrink-0 stroke-current">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>Jika ingin meminjam buku, datangi perpustakaan dan scan QR Code yang tertera pada
+                                buku. Jika belum ada QR Code, hubungi pihak Petugas/Admin.</span>
+                        </div>
+                        <div role="alert" class="alert alert-warning lg:w-1/2 alert-outline">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="h-6 w-6 shrink-0 stroke-current">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>Klik pada card buku untuk membuka detail buku.</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="divider my-0 border-solid md:border-dotted">
@@ -159,7 +172,7 @@
                 <div class="grid grid-cols-2 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @forelse($books as $book)
 
-                        <div class="card border border-base-200 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-cyan-700/30 hover:shadow-lg"
+                        <div class="card cursor-pointer border border-base-200 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-cyan-700/30 hover:shadow-lg"
                             onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()">
                             <figure class="aspect-[3/4] overflow-hidden bg-base-200 px-4 pt-4">
                                 @if ($book->cover_image)
@@ -167,8 +180,7 @@
                                         <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
                                             class="h-full w-full rounded-xl object-cover" />
                                     @else
-                                        <img src="{{ asset('storage/' . $book->cover_image) }}"
-                                            alt="Cover {{ $book->title }}"
+                                        <img src="{{ asset('storage/' . $book->cover_image) }}" alt="Cover {{ $book->title }}"
                                             class="h-full w-full rounded-xl object-cover">
                                     @endif
                                 @else
@@ -178,17 +190,11 @@
                             </figure>
                             <div class="card-body flex flex-col lg:flex-row justify-between gap-3 p-4">
                                 <div>
-                                    <h2 class="card-title text-base font-bold leading-snug">{{ $book->title }}</h2>
+                                    <h2 class="card-title text-base font-bold leading-snug text-sm">{{ $book->title }}</h2>
                                     <p class="text-xs text-base-content/70">{{ $book->author }}</p>
                                     <p class="mt-2 text-xs text-base-content/60">Stok: {{ $book->stock }}</p>
                                 </div>
-                                <div
-                                    class="sm:hidden card-actions flex flex-row lg:flex-col lg:justify-end lg:items-end">
-                                    <button type="button"
-                                        onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()"
-                                        class="btn border-cyan-700 bg-cyan-700 px-4 py-1 text-sm text-white hover:border-cyan-800 hover:bg-cyan-800">
-                                        Detail
-                                    </button>
+                                <div class="card-actions flex flex-row lg:flex-col lg:justify-end lg:items-end">
                                     @if (Auth::user()->role === 'admin')
                                         <a href="{{ route('books.edit', $book->id) }}"
                                             class="btn border-cyan-700 bg-cyan-700 px-4 py-1 text-sm text-white hover:border-cyan-800 hover:bg-cyan-800">
@@ -207,11 +213,10 @@
                                     <div class="card-actions justify-end">
                                         <form method="dialog">
                                             <button class="btn btn-square btn-sm">
-                                                <svg aria-label="Close" xmlns="http://www.w3.org/2000/svg"
-                                                    class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                                    stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                <svg aria-label="Close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
                                             </button>
                                         </form>
@@ -220,18 +225,8 @@
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
                                     <!-- Cover Buku di Modal -->
-                                    <div class="hover-3d">
-                                        <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
-                                            class="w-full h-full object-cover rounded-lg shadow-md" />
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
+                                    <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
+                                        class="w-full h-full object-cover rounded-lg shadow-md" />
 
                                     <!-- Informasi Detail Buku -->
                                     <div class="flex flex-col justify-between">
@@ -241,12 +236,14 @@
                                                 <span class="text-base-content/60 block">Penulis</span>
                                                 <span class="font-semibold text-base">{{ $book->author }}</span>
                                             </div>
+                                            <div class="divider"></div>
                                             <div>
                                                 <span class="text-base-content/60 block">Penerbit</span>
                                                 <span class="font-semibold">{{ $book->publisher }}
                                                     ({{ $book->year }})
                                                 </span>
                                             </div>
+                                            <div class="divider"></div>
                                             <div>
                                                 <span class="text-base-content/60 block">Kategori</span>
                                                 <!-- Mengambil nama kategori dari relasi database -->
@@ -258,6 +255,7 @@
                                                         Kategori</span>
                                                 @endforelse
                                             </div>
+                                            <div class="divider"></div>
                                             <div>
                                                 <span class="text-base-content/60 block">Status Stok</span>
                                                 @if ($book->stock > 0)
@@ -268,18 +266,33 @@
                                                     <span class="badge badge-error text-white">Stok Habis</span>
                                                 @endif
                                             </div>
+                                            <div class="divider"></div>
                                             <div>
                                                 <span class="text-base-content/60 block">Letak Rak</span>
                                                 <span class="font-semibold text-base">{{ $book->place }}</span>
                                             </div>
+                                            <div class="divider"></div>
                                         </div>
 
                                         <div class="modal-action flex flex-col items-end mt-6 justify-end">
                                             @if ($book->stock > 0)
-                                                <div class="card w-full bg-cyan-700 text-white shadow-sm">
-                                                    <div class="card-body">
-                                                        <p>Stok buku tersedia. Datangi Perpustakaan untuk meminjam.</p>
-                                                    </div>
+                                                <div class="alert alert-success alert-dash">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                    <span>Stok buku tersedia. Datangi Perpustakaan untuk meminjam.</span>
+                                                </div>
+                                            @else
+                                                <div class="alert alert-error alert-dash">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                    <span>Maaf, stok buku habis. Silakan datang ke perpustakaan saat stok
+                                                        tersedia.</span>
                                                 </div>
                                             @endif
                                         </div>
