@@ -101,8 +101,7 @@
                                         {{ request('sortDirection', 'asc') == 'asc' ? 'selected' : '' }}>
                                         Menaik
                                     </option>
-                                    <option value="desc"
-                                        {{ request('sortDirection') == 'desc' ? 'selected' : '' }}>
+                                    <option value="desc" {{ request('sortDirection') == 'desc' ? 'selected' : '' }}>
                                         Menurun
                                     </option>
                                 </select>
@@ -157,33 +156,34 @@
                     @endif
                 </div>
 
-                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div class="grid grid-cols-2 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @forelse($books as $book)
 
-                        <div
-                            class="card border border-base-200 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-cyan-700/30 hover:shadow-lg">
-                                <figure class="aspect-[3/4] overflow-hidden bg-base-200 px-4 pt-4">
-                                    @if ($book->cover_image)
-                                        @if (\Illuminate\Support\Str::startsWith($book->cover_image, ['http://', 'https://']))
-                                            <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
-                                                class="h-full w-full rounded-xl object-cover" />
-                                        @else
-                                            <img src="{{ asset('storage/' . $book->cover_image) }}"
-                                                alt="Cover {{ $book->title }}"
-                                                class="h-full w-full rounded-xl object-cover">
-                                        @endif
+                        <div class="card border border-base-200 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-cyan-700/30 hover:shadow-lg"
+                            onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()">
+                            <figure class="aspect-[3/4] overflow-hidden bg-base-200 px-4 pt-4">
+                                @if ($book->cover_image)
+                                    @if (\Illuminate\Support\Str::startsWith($book->cover_image, ['http://', 'https://']))
+                                        <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
+                                            class="h-full w-full rounded-xl object-cover" />
                                     @else
-                                        <img src="{{ asset('images/NoImage.jpg') }}" alt="Cover tidak tersedia"
+                                        <img src="{{ asset('storage/' . $book->cover_image) }}"
+                                            alt="Cover {{ $book->title }}"
                                             class="h-full w-full rounded-xl object-cover">
                                     @endif
-                                </figure>
-                            <div class="card-body flex flex-row justify-between gap-3 p-4">
+                                @else
+                                    <img src="{{ asset('images/NoImage.jpg') }}" alt="Cover tidak tersedia"
+                                        class="h-full w-full rounded-xl object-cover">
+                                @endif
+                            </figure>
+                            <div class="card-body flex flex-col lg:flex-row justify-between gap-3 p-4">
                                 <div>
                                     <h2 class="card-title text-base font-bold leading-snug">{{ $book->title }}</h2>
                                     <p class="text-xs text-base-content/70">{{ $book->author }}</p>
                                     <p class="mt-2 text-xs text-base-content/60">Stok: {{ $book->stock }}</p>
                                 </div>
-                                <div class="card-actions flex flex-col justify-end items-end">
+                                <div
+                                    class="sm:hidden card-actions flex flex-row lg:flex-col lg:justify-end lg:items-end">
                                     <button type="button"
                                         onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()"
                                         class="btn border-cyan-700 bg-cyan-700 px-4 py-1 text-sm text-white hover:border-cyan-800 hover:bg-cyan-800">

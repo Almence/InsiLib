@@ -37,7 +37,7 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle lg:hidden" />
         <div class="drawer-content flex flex-col">
             <!-- Navbar -->
-            <div id="up" class="navbar border-b border-base-200 bg-base-100 shadow-sm no-print">
+            <div id="up" class="navbar border-b border-base-200 justify-between bg-base-100 shadow-sm no-print">
                 <div class="flex-none lg:hidden">
                     <label for="my-drawer-2" aria-label="open sidebar" class="btn btn-square btn-ghost drawer-button">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -117,9 +117,9 @@
             <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
             <ul class="menu min-h-full w-80 bg-base-100 p-4">
                 <!-- Sidebar content here -->
-                <li><a href="{{ route('dashboard') }}" class="font-medium text-cyan-700">Dashboard</a></li>
-                <li><a href="{{ route('profile') }}" class="hover:text-cyan-700">Profil</a></li>
-                <li><a href="{{ route('catalog') }}" class="hover:text-cyan-700">Katalog Buku</a></li>
+                <li class="{{ request()->is('dashboard') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li class="{{ request()->is('profile') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}"><a href="{{ route('profile') }}">Profil</a></li>
+                <li class="{{ request()->is('catalog') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}"><a href="{{ route('catalog') }}">Katalog Buku</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST"
                         onsubmit="return confirm('Apakah Anda yakin ingin keluar?')">

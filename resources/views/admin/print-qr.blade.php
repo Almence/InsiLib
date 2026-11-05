@@ -3,74 +3,95 @@
         Cetak QR Code Buku
     </x-slot:title>
 
-    <div class="mx-2 md:mx-8 my-8">
-        <div class="card bg-base-100 shadow-xl">
-            <div class="card-body">
-
-                <!-- Header & Tombol Aksi Utama (Disembunyikan saat diprint) -->
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 no-print">
-                    <div>
-                        <h1 class="text-3xl font-bold">Cetak QR Code Buku</h1>
-                        <p class="text-base-content/70 text-sm">Pilih buku dan atur jumlah cetak stiker QR code sesuai
-                            kebutuhan.</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="window.print()" class="btn btn-primary">
-                            🖨️ Cetak Halaman
-                        </button>
-                    </div>
+    <div class="my-8 space-y-6 md:my-10">
+        <section class="no-print overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-700 to-cyan-900 p-6 text-white shadow-lg md:p-8">
+            <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                    <p class="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan-100">Pengelolaan koleksi InsiLib</p>
+                    <h1 class="text-3xl font-bold tracking-tight md:text-4xl">Cetak QR Code Buku</h1>
+                    <p class="mt-2 max-w-2xl text-sm leading-relaxed text-cyan-50 md:text-base">
+                        Pilih buku dan jumlah label yang dibutuhkan, lalu cetak QR untuk akses peminjaman.
+                    </p>
                 </div>
-
-                <!-- Panel Kontrol Interaktif (No Print) -->
-                <div class="card bg-base-200/60 p-4 mb-8 no-print border border-base-300">
-                    <h2 class="font-bold text-base mb-3">Atur Daftar Cetak</h2>
-
-                    <div class="flex flex-col sm:flex-row gap-3 mb-4">
-                        <!-- Dropdown Pilih Buku -->
-                        <div class="flex-1 relative">
-                            <input id="book-select" class="input input-bordered w-full" list="list-book-select"
-                                placeholder="Cari Buku">
-                            <datalist id="list-book-select">
-                                @foreach($books as $book)
-                                    <option value="{{ $book->title }}"></option>
-                                @endforeach
-                            </datalist>
-
-                        </div>
-
-                        <!-- Input Jumlah / Quantity -->
-                        <input type="number" id="book-qty" value="1" min="1" max="20" class="input input-bordered w-24"
-                            placeholder="Qty" />
-
-                        <!-- Tombol Tambah -->
-                        <button type="button" onclick="addBook()" class="btn btn-neutral">➕ Tambah</button>
-                    </div>
-
-                    <!-- Tombol Aksi Massal -->
-                    <div class="flex flex-wrap gap-2 pt-2 border-t border-base-300">
-                        <button type="button" onclick="addAllBooks()" class="btn btn-sm btn-outline btn-primary">Tambah
-                            Semua Buku</button>
-                        <button type="button" onclick="clearAllBooks()" class="btn btn-sm btn-outline btn-error">Hapus
-                            Semua</button>
-                    </div>
-                </div>
-
-                <!-- PREVIEW GRID QR CODE (Bagian yang akan dicetak) -->
-                <div class="mb-4 no-print flex justify-between items-center">
-                    <h3 class="font-bold text-lg">Pratinjau Hasil Cetak Stiker</h3>
-                    <span id="total-badge" class="badge badge-primary">Total: 0 QR Code</span>
-                </div>
-
-                <!-- Tempat Grid QR akan dirender secara dinamis oleh JavaScript -->
-                <div id="qr-grid-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                    <div
-                        class="col-span-full text-center py-12 text-base-content/50 border-2 border-dashed border-base-300 rounded-xl">
-                        Belum ada buku yang dipilih. Silakan tambahkan buku di panel atas.
-                    </div>
-                </div>
-
+                <button onclick="window.print()"
+                    class="btn border-white bg-white text-cyan-800 hover:border-cyan-50 hover:bg-cyan-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z" />
+                    </svg>
+                    Cetak QR
+                </button>
             </div>
-        </div>
+        </section>
+
+        <section class="no-print rounded-2xl border border-base-200 bg-base-100 p-5 shadow-sm md:p-6">
+            <div class="mb-5">
+                <p class="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700">Langkah 1</p>
+                <h2 class="mt-1 text-xl font-bold">Atur Daftar Cetak</h2>
+                <p class="mt-1 text-sm text-base-content/60">Tambahkan satu buku atau masukkan semua buku sekaligus.</p>
+            </div>
+            <div class="grid grid-cols-1 items-end gap-3 sm:grid-cols-[minmax(0,1fr)_8rem_auto]">
+                <div class="space-y-1">
+                    <label for="book-select" class="text-xs font-semibold uppercase tracking-wide text-base-content/60">Pilih buku</label>
+                    <input id="book-select" class="input input-bordered w-full focus:border-cyan-700"
+                        list="list-book-select" placeholder="Cari judul buku">
+                    <datalist id="list-book-select">
+                        @foreach($books as $book)
+                            <option value="{{ $book->title }}"></option>
+                        @endforeach
+                    </datalist>
+                </div>
+                <div class="space-y-1">
+                    <label for="book-qty" class="text-xs font-semibold uppercase tracking-wide text-base-content/60">Jumlah</label>
+                    <input type="number" id="book-qty" value="1" min="1" max="20"
+                        class="input input-bordered w-full focus:border-cyan-700" placeholder="Qty">
+                </div>
+                <button type="button" onclick="addBook()"
+                    class="btn border-cyan-700 bg-cyan-700 text-white hover:border-cyan-800 hover:bg-cyan-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" d="M12 5v14m-7-7h14" />
+                    </svg>
+                    Tambah Buku
+                </button>
+            </div>
+            <div class="mt-5 flex flex-wrap gap-2 border-t border-base-200 pt-4">
+                <button type="button" onclick="addAllBooks()"
+                    class="btn btn-sm border-cyan-700 text-cyan-700 hover:bg-cyan-50">Tambah Semua Buku</button>
+                <button type="button" onclick="clearAllBooks()"
+                    class="btn btn-sm border-base-300 text-base-content/70 hover:border-error hover:bg-error/5 hover:text-error">Hapus Semua</button>
+            </div>
+        </section>
+
+        <section id="qr-print-area" class="rounded-2xl border border-base-200 bg-base-100 p-5 shadow-sm md:p-6">
+            <div class="print-only mb-4 hidden">
+                <h1 class="text-xl font-bold">InsiLib · Label QR Buku</h1>
+            </div>
+            <div class="no-print mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700">Langkah 2</p>
+                    <h2 class="mt-1 text-xl font-bold">Pratinjau Label QR</h2>
+                    <p class="mt-1 text-sm text-base-content/60">Label akan dicetak sesuai susunan di bawah ini.</p>
+                </div>
+                <span id="total-badge" class="badge border-cyan-200 bg-cyan-50 px-3 py-3 font-semibold text-cyan-800">
+                    Total: 0 QR Code
+                </span>
+            </div>
+            <div id="qr-grid-container" class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div class="empty-state col-span-full rounded-2xl border-2 border-dashed border-base-300 px-4 py-12 text-center">
+                    <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h3v3h-3zM19 14h2M14 19v2M19 19h2v2h-2z" />
+                        </svg>
+                    </div>
+                    <p class="mt-4 font-semibold">Belum ada buku yang dipilih</p>
+                    <p class="mt-1 text-sm text-base-content/60">Tambahkan buku melalui panel di atas untuk melihat label QR.</p>
+                </div>
+            </div>
+        </section>
     </div>
 
     <!-- SUMBER QR CODE TERSEMBUNYI (Dirender server-side agar bisa dikloning JS) -->
@@ -158,8 +179,9 @@
 
             if (printList.length === 0) {
                 container.innerHTML = `
-                    <div class="col-span-full text-center py-12 text-base-content/50 border-2 border-dashed border-base-300 rounded-xl">
-                        Belum ada buku yang dipilih. Silakan tambahkan buku di panel atas.
+                    <div class="empty-state col-span-full rounded-2xl border-2 border-dashed border-base-300 px-4 py-12 text-center">
+                        <p class="font-semibold">Belum ada buku yang dipilih</p>
+                        <p class="mt-1 text-sm text-base-content/60">Tambahkan buku melalui panel di atas untuk melihat label QR.</p>
                     </div>
                 `;
                 totalBadge.innerText = 'Total: 0 QR Code';
@@ -174,22 +196,18 @@
                 for (let i = 0; i < item.qty; i++) {
                     totalQrCount++;
                     htmlContent += `
-                        <div class="card bg-base-100 border border-base-300 p-3 text-center shadow-sm break-inside-avoid relative group">
-                            <!-- Tombol hapus kecil di pojok kartu (hilang saat diprint) -->
-                            <button onclick="removeItem(${index})" class="absolute top-1 right-1 btn btn-xs btn-circle btn-ghost text-error no-print" title="Hapus item ini">✕</button>
-                            
-                            <h3 class="font-bold text-xs mb-1 line-clamp-1" title="${item.title}">${item.title}</h3>
-                            
-                            <!-- Tempat QR Code disalin dari elemen tersembunyi -->
-                            <div class="flex justify-center my-1 qr-slot" data-book-id="${item.id}">
-                                <!-- SVG akan dimasukkan lewat JS di bawah -->
+                        <article class="qr-label relative flex flex-col items-center rounded-xl border border-base-200 bg-base-100 p-4 text-center shadow-sm">
+                            <button onclick="removeItem(${index})"
+                                class="no-print btn btn-xs btn-circle btn-ghost absolute right-2 top-2 text-error"
+                                title="Hapus item ini" aria-label="Hapus ${item.title} dari daftar cetak">✕</button>
+                            <h3 class="mb-1 line-clamp-2 min-h-10 w-full px-5 text-sm font-bold leading-snug" title="${item.title}">${item.title}</h3>
+                            <div class="qr-slot my-2 flex justify-center" data-book-id="${item.id}">
                             </div>
-                            
-                            <div class="flex justify-between items-center text-[10px] text-base-content/60 mt-1 px-1">
-                                <span>ID: ${item.id}</span>
-                                <span class="no-print">(${i + 1}/${item.qty})</span>
+                            <div class="mt-1 flex w-full items-center justify-between border-t border-base-200 pt-2 text-[10px] text-base-content/60">
+                                <span>Kode buku #${item.id}</span>
+                                <span class="no-print">${i + 1} dari ${item.qty}</span>
                             </div>
-                        </div>
+                        </article>
                     `;
                 }
             });
@@ -208,34 +226,84 @@
         }
     </script>
 
-    <!-- CSS Khusus Mode Cetak (Print) -->
     <style>
+        .qr-slot svg {
+            display: block;
+            width: 100px;
+            height: 100px;
+        }
+
         @media print {
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
             .no-print {
                 display: none !important;
             }
 
-            .printed {
-                display: contents !important;
-            }
-
+            html,
             body {
                 background: white !important;
+                color: black !important;
             }
 
-            .card {
+            body > .drawer,
+            .drawer-content {
+                display: block !important;
+            }
+
+            .navbar,
+            .drawer-side,
+            .fab,
+            footer {
+                display: none !important;
+            }
+
+            .drawer-content > main {
+                display: block !important;
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            #qr-print-area {
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: 0 !important;
+                border-radius: 0 !important;
                 box-shadow: none !important;
-                border: 1px solid #ddd !important;
             }
 
-            .break-inside-avoid {
+            .print-only {
+                display: block !important;
+                margin-bottom: 12px !important;
+            }
+
+            .empty-state {
+                display: none !important;
+            }
+
+            .qr-label {
                 break-inside: avoid;
+                border: 1px solid #bbb !important;
+                border-radius: 4px !important;
+                box-shadow: none !important;
+                padding: 8px !important;
+            }
+
+            .qr-slot svg {
+                width: 90px;
+                height: 90px;
             }
 
             #qr-grid-container {
                 display: grid !important;
                 grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-                gap: 8px !important;
+                gap: 6px !important;
             }
         }
     </style>
