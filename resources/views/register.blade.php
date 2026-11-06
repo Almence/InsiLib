@@ -3,11 +3,11 @@
           Register
       </x-slot:title>
 
-      <div class="flex flex-col md:flex-row min-h-[calc(100vh-65px)] rounded-full">
+      <div class="flex flex-col md:flex-row min-h-[calc(100vh-65px)]">
 
           <!-- Left panel -->
           <div
-              class="relative w-full md:w-1/2 min-h-[320px] md:min-h-full flex flex-col justify-between p-8 md:p-12 overflow-hidden">
+              class="relative w-full md:w-1/2 min-h-[320px] md:min-h-full flex flex-col justify-between p-8 md:p-12 overflow-hidden rounded-lg">
               <!-- background image + overlay -->
               <div class="absolute inset-0 bg-cover bg-center"
                   style="background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80');">
@@ -24,25 +24,24 @@
               <div class="relative z-10 text-white max-w-md">
                   <h2 class="text-2xl md:text-3xl font-semibold mb-3">Perpustakaan Wawasan Anda</h2>
                   <p class="text-white/80 text-sm mb-5 leading-relaxed">
-                      Temukan koleksi pustaka digital, arsip pengetahuan, dan literatur pilihan dari
-                      seluruh dunia untuk menunjang pencapaian akademis dan riset terbaik Anda.
+                      Temukan koleksi pustaka digital, arsip pengetahuan, dan literatur pilihan untuk menunjang pencapaian akademis dan riset terbaik Anda.
                   </p>
                   <ul class="space-y-2 text-sm">
                       <li class="flex items-center gap-2">
-                          <span class="text-cyan-300">✦</span> Akses 24/7 Tanpa Batas
+                          <span class="text-cyan-300">✦</span> Akses Tanpa Batas
                       </li>
                       <li class="flex items-center gap-2">
-                          <span class="text-cyan-300">✦</span> Ribuan Jurnal Terakreditasi
+                          <span class="text-cyan-300">✦</span> Banyak Koleksi Buku
                       </li>
                       <li class="flex items-center gap-2">
-                          <span class="text-cyan-300">✦</span> Rekomendasi Cerdas Berbasis AI
+                          <span class="text-cyan-300">✦</span> Otomatisasi QR Code
                       </li>
                   </ul>
               </div>
           </div>
 
           <!-- Right panel -->
-          <div class="w-full md:w-1/2 flex items-center justify-center bg-[#F3F1EC] p-8 md:p-12">
+          <div class="w-full md:w-1/2 flex items-center justify-center bg-[#F3F1EC] p-8 md:p-12 rounded-lg">
               <div class="w-full max-w-sm">
                   <h2 class="text-2xl font-bold text-gray-900 mb-1">Buat Akun Baru</h2>
                   <p class="text-sm text-gray-500 mb-8">Daftar untuk mulai mengakses layanan perpustakaan digital

@@ -74,4 +74,24 @@ class AuthController extends Controller
 
         return redirect()->intended(route('dashboard'))->with('success', 'Berhasil mendaftar dan login');
     }
+
+    public function toManageUser()
+    {
+        $users = User::all();
+        return view('admin.user-manager', compact('users'));
+    }
+
+    public function updateUserPass(Request $request, $id)
+    {
+        $user = User::findOrFail( $id );
+
+        $request->validate([
+            'password' => 'required|max:6|confirm',
+        ]);
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password untuk akun' . $user->name .'telah diperbarui!');
+    }
 }

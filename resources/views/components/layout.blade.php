@@ -78,7 +78,7 @@
                     </ul>
                 </div>
                 <div class="lg:navbar-end">
-                    <button type="submit" onclick="modal_logout.showModal()"
+                    <button type="submit" onclick="modal_logout.showModal()" {{ request()->is(['register', '/']) ? 'disabled=disabled class=btn' : '' }}
                         class="btn bg-cyan-700 text-sm font-medium text-white hover:bg-red-800">
                         Logout
                     </button>
@@ -120,16 +120,6 @@
                 <li class="{{ request()->is('dashboard') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                 <li class="{{ request()->is('profile') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}"><a href="{{ route('profile') }}">Profil</a></li>
                 <li class="{{ request()->is('catalog') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}"><a href="{{ route('catalog') }}">Katalog Buku</a></li>
-                <li>
-                    <form action="{{ route('logout') }}" method="POST"
-                        onsubmit="return confirm('Apakah Anda yakin ingin keluar?')">
-                        @csrf
-                        <button type="submit"
-                            class="rounded-md bg-cyan-700 px-4 py-1.5 text-sm font-medium text-white hover:bg-cyan-800">
-                            Logout
-                        </button>
-                    </form>
-                </li>
             </ul>
         </div>
     </div>

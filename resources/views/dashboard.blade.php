@@ -21,7 +21,7 @@
                                 </p>
                             </div>
                             <div class="flex flex-wrap gap-2 items-center">
-                                <button class="btn border-cyan-700 hover:bg-cyan-50">
+                                <a href="{{ route('admin.user-manager') }}" class="btn border-cyan-700 hover:bg-cyan-50">
                                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         stroke="#000000" stroke="currentColor" class="w-6 h-6">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -35,7 +35,7 @@
                                         </g>
                                     </svg>
                                     <span class="text-cyan-700">Kelola User</span>
-                                </button>
+                                </a>
                                 <div class="dropdown dropdown-hover dropdown-center">
                                     <div tabindex="0" role="button" class="btn m-1">
                                         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"

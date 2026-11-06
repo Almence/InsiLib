@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('books', BookController::class)->only(['index', 'show']);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::get('/user-manager', [AuthController::class,'toManageUser'])->name('admin.user-manager');
+
     Route::patch('/profile/name', [ProfileController::class, 'updateNameClass'])->name('update.nama');
     Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('update.password');
     Route::patch('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('update.avatar');
