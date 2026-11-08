@@ -123,8 +123,18 @@
                                 <div
                                     class="flex flex-col gap-4 rounded-2xl border border-base-200 bg-base-100 p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between md:p-5">
                                     <div class="flex min-w-0 items-center gap-4">
-                                        <img src="{{ $loan->book->cover_image }}" alt="Sampul {{ $loan->book->title }}"
-                                            class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm" />
+                                        @if ($loan->book->cover_image)
+                                            @if (\Illuminate\Support\Str::startsWith($loan->book->cover_image, ['http://', 'https://']))
+                                                <img src="{{ $loan->book->cover_image }}" alt="{{ $loan->book->title }}"
+                                                    class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm" />
+                                            @else
+                                                <img src="{{ asset('storage/' . $loan->book->cover_image) }}" alt="Cover {{ $loan->book->title }}"
+                                                    class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm">
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('images/NoImage.jpg') }}" alt="Cover tidak tersedia"
+                                                class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm">
+                                        @endif
                                         <div class="min-w-0">
                                             <span
                                                 class="badge badge-sm border-amber-200 bg-amber-50 text-amber-800">Menunggu
@@ -182,9 +192,18 @@
                                 <div
                                     class="flex flex-col gap-4 rounded-2xl border border-base-200 bg-base-100 p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between md:p-5">
                                     <div class="flex min-w-0 items-center gap-4">
-                                        <img src="{{ $loan->book->cover_image }}"
-                                            alt="Sampul {{ $loan->book->title }}"
-                                            class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm" />
+                                        @if ($loan->book->cover_image)
+                                            @if (\Illuminate\Support\Str::startsWith($loan->book->cover_image, ['http://', 'https://']))
+                                                <img src="{{ $loan->book->cover_image }}" alt="{{ $loan->book->title }}"
+                                                    class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm" />
+                                            @else
+                                                <img src="{{ asset('storage/' . $loan->book->cover_image) }}" alt="Cover {{ $loan->book->title }}"
+                                                    class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm">
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('images/NoImage.jpg') }}" alt="Cover tidak tersedia"
+                                                class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm">
+                                        @endif
                                         <div class="min-w-0">
                                             <span
                                                 class="badge badge-sm border-cyan-200 bg-cyan-50 text-cyan-800">Sedang

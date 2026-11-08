@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/user-manager', [AuthController::class,'toManageUser'])->name('admin.user-manager');
 
+    Route::patch('/user-manager/{id}/update-user-cred',[AuthController::class, 'updateUserCred'])->name('update.cred');
+
     Route::patch('/profile/name', [ProfileController::class, 'updateNameClass'])->name('update.nama');
     Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('update.password');
     Route::patch('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('update.avatar');

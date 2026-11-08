@@ -81,17 +81,26 @@ class AuthController extends Controller
         return view('admin.user-manager', compact('users'));
     }
 
-    public function updateUserPass(Request $request, $id)
+    public function updateUserCred(Request $request, $id)
     {
         $user = User::findOrFail( $id );
 
         $request->validate([
-            'password' => 'required|max:6|confirm',
+            'name' => 'required|string|max:255',
+            'kelas' => 'nullable|string|max:255',
+            'password' => 'nullable|max:6',
         ]);
 
-        $user->password = Hash::make($request->password);
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->name = $request->name;
+
+        $user->kelas = $request->kelas;
+
         $user->save();
 
-        return redirect()->back()->with('success', 'Password untuk akun' . $user->name .'telah diperbarui!');
+        return redirect()->back()->with('success', 'Update kredensial untuk akun' . $user->name .'berhasil!');
     }
 }
