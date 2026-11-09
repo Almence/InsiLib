@@ -34,7 +34,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/user-manager', [AuthController::class,'toManageUser'])->name('admin.user-manager');
 
+    Route::get('/add-account', [AuthController::class,'toAddUser'])->name('add-account');
+    Route::post('/add-account', [AuthController::class,'addUser'])->name('admin.add-user');
+    Route::delete('/deletion/{id}', [BookController::class,'destroy'])->name('book.delete');
+
     Route::patch('/user-manager/{id}/update-user-cred',[AuthController::class, 'updateUserCred'])->name('update.cred');
+    Route::delete('/user-manager/{id}/delete-user', [AuthController::class,'deleteUser'])->name('delete.account');
 
     Route::patch('/profile/name', [ProfileController::class, 'updateNameClass'])->name('update.nama');
     Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('update.password');

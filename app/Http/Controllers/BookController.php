@@ -157,8 +157,11 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $book->delete();
+
+        redirect()->back()->with('success', 'Buku' . $book->title .'berhasil dihapus.');
     }
 }

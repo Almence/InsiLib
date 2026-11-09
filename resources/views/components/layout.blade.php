@@ -32,7 +32,8 @@
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-base-200 font-sans bg-[url(https://i.pinimg.com/736x/14/01/29/1401290decdefa3bfbba3d90bdf41d3c.jpg)] bg-center bg-repeat">
+<body
+    class="min-h-screen flex flex-col bg-base-200 font-sans bg-[url(https://i.pinimg.com/736x/14/01/29/1401290decdefa3bfbba3d90bdf41d3c.jpg)] bg-center bg-repeat">
     <div class="drawer flex-1">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle lg:hidden" />
         <div class="drawer-content flex flex-col">
@@ -78,7 +79,8 @@
                     </ul>
                 </div>
                 <div class="lg:navbar-end">
-                    <button type="submit" onclick="modal_logout.showModal()" {{ request()->is(['register', '/']) ? 'disabled=disabled class=btn' : '' }}
+                    <button type="submit" onclick="modal_logout.showModal()"
+                        {{ request()->is(['register', '/']) ? 'disabled=disabled class=btn' : '' }}
                         class="btn bg-cyan-700 text-sm font-medium text-white hover:bg-red-800">
                         Logout
                     </button>
@@ -95,18 +97,21 @@
                             <span>Apakah Anda yakin untuk Logout?</span>
                         </div>
                         <div class="mt-2 flex flex-row justify-center gap-6">
-                            <form action="{{ route('logout') }}" method="POST">
+                            <form action="{{ route('logout') }}" method="POST" class="grow">
                                 @csrf
                                 <button type="submit"
                                     class="btn w-full bg-cyan-700 text-sm font-medium text-white hover:bg-red-800">
                                     Ya
                                 </button>
                             </form>
-                            <form method="dialog">
+                            <form method="dialog" class="grow">
                                 <button class="btn w-full text-sm font-light">Tidak</button>
                             </form>
                         </div>
                     </div>
+                    <form method="dialog" class="modal-backdrop">
+                        <button>close</button>
+                    </form>
                 </dialog>
             </div>
             <main class="container mx-auto w-full max-w-7xl flex-1 px-4 py-8 md:py-10">
@@ -117,9 +122,18 @@
             <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
             <ul class="menu min-h-full w-80 bg-base-100 p-4">
                 <!-- Sidebar content here -->
-                <li class="{{ request()->is('dashboard') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="{{ request()->is('profile') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}"><a href="{{ route('profile') }}">Profil</a></li>
-                <li class="{{ request()->is('catalog') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}"><a href="{{ route('catalog') }}">Katalog Buku</a></li>
+                <li
+                    class="{{ request()->is('dashboard') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}">
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                </li>
+                <li
+                    class="{{ request()->is('profile') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}">
+                    <a href="{{ route('profile') }}">Profil</a>
+                </li>
+                <li
+                    class="{{ request()->is('catalog') ? 'border-l border-cyan-700 text-cyan-700 bg-base-300' : '' }}">
+                    <a href="{{ route('catalog') }}">Katalog Buku</a>
+                </li>
             </ul>
         </div>
     </div>

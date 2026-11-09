@@ -7,7 +7,7 @@
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <div
-                    class="mb-8 rounded-2xl bg-gradient-to-br from-cyan-700 to-cyan-900 p-6 text-white shadow-lg md:p-8">
+                    class="mb-8 rounded-2xl bg-gradient-to-br from-cyan-700 to-cyan-900 p-6 text-white shadow-lg md:p-8 lg:grid lg:grid-cols-2">
                     <div>
                         <p class="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan-100">INSILIB</p>
                         <h1 class="text-3xl font-bold tracking-tight md:text-4xl">Kelola Akun Pengguna</h1>
@@ -15,7 +15,41 @@
                             Hapus atau edit semua akun pengguna.
                         </p>
                     </div>
+                    <div class="mt-4 justify-self-end lg:my-auto">
+                        <a href="{{ route('add-account') }}">
+                            <button class="btn">
+                                <svg viewBox="-1 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" class="size-10">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <title>profile_plus [#1337]</title>
+                                        <desc>Created with Sketch.</desc>
+                                        <defs> </defs>
+                                        <g id="Page-1" stroke="none" stroke-width="1" fill="none"
+                                            fill-rule="evenodd">
+                                            <g id="Dribbble-Light-Preview"
+                                                transform="translate(-340.000000, -2159.000000)" fill="#000000">
+                                                <g id="icons" transform="translate(56.000000, 160.000000)">
+                                                    <path
+                                                        d="M298,2005 C298,2002.794 296.206,2001 294,2001 C291.794,2001 290,2002.794 290,2005 C290,2007.206 291.794,2009 294,2009 C296.206,2009 298,2007.206 298,2005 L298,2005 Z M304,2019 L299,2019 L299,2017 L301.784,2017 C300.958,2013.214 297.785,2011 294,2011 C290.215,2011 287.042,2013.214 286.216,2017 L289,2017 L289,2019 L284,2019 C284,2014.445 286.583,2011.048 290.242,2009.673 C288.876,2008.574 288,2006.89 288,2005 C288,2001.686 290.686,1999 294,1999 C297.314,1999 300,2001.686 300,2005 C300,2006.89 299.124,2008.574 297.758,2009.673 C301.417,2011.048 304,2014.445 304,2019 L304,2019 Z M295,2017 L297,2017 L297,2019 L295,2019 L295,2021 L293,2021 L293,2019 L291,2019 L291,2017 L293,2017 L293,2015 L295,2015 L295,2017 Z"
+                                                        id="profile_plus-[#1337]"> </path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                                Tambah Akun
+                            </button>
+                        </a>
+                    </div>
                 </div>
+
+                @if (Session::has('success'))
+                    <div class="alert alert-info">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
 
                 <div>
                     <table class="table table-zebra bg-cyan-50 block w-full md:table">
@@ -76,14 +110,21 @@
                                         <div
                                             class="mb-2 text-xs font-semibold uppercase tracking-wide opacity-60 md:hidden">
                                             Edit Kredensial</div>
-                                        <button class="btn btn-sm btn-info btn-outline w-full"
-                                            onclick="modal_change_{{ $user->id }}.showModal()">
-                                            Edit Akun
-                                        </button>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <button class="btn btn-sm btn-info btn-outline h-full"
+                                                onclick="modal_change_{{ $user->id }}.showModal()">
+                                                Edit Akun
+                                            </button>
+                                            <button class="btn btn-error btn-outline h-full"
+                                                onclick="modal_deletion_{{ $user->id }}.showModal()">
+                                                Hapus Akun
+                                            </button>
+                                        </div>
                                         <dialog id="modal_change_{{ $user->id }}" class="modal">
                                             <div class="modal-box">
                                                 <div class="form-control mb-3">
-                                                    <h3 class="text-lg font-bold">Ganti Nama User</h3>
+                                                    <h3 class="text-lg font-bold">Edit Pengguna {{ $user->name }}
+                                                    </h3>
                                                     <form action="{{ route('update.cred', $user->id) }}"
                                                         method="POST">
                                                         @csrf
@@ -116,6 +157,22 @@
                                                                     onclick="modal_change_{{ $user->id }}.close()">Batal</button>
                                                             </div>
                                                         </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </dialog>
+
+                                        <dialog id="modal_deletion_{{ $user->id }}" class="modal">
+                                            <div class="modal-box">
+                                                <div class="form-control mb-3">
+                                                    <h3>Yakin Ingin Menghapus Akun</h3>
+                                                    <form action="{{ route('delete.account', $user->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-close" type="submit">
+                                                            Hapus
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </div>

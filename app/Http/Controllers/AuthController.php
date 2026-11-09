@@ -83,7 +83,7 @@ class AuthController extends Controller
 
     public function updateUserCred(Request $request, $id)
     {
-        $user = User::findOrFail( $id );
+        $user = User::findOrFail($id);
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -101,6 +101,44 @@ class AuthController extends Controller
 
         $user->save();
 
-        return redirect()->back()->with('success', 'Update kredensial untuk akun' . $user->name .'berhasil!');
+        return redirect()->back()->with('success', 'Update kredensial untuk akun' . $user->name . 'berhasil!');
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->back()->with('success', 'Akun dengan Email ' . $user->email . ' berhasil dihapus!');
+    }
+
+    public function addUser(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'role' => 'user', // Set default role as user
+        ]);
+
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'Gagal mendaftar. Silakan coba lagi.',
+            ])->onlyInput('email');
+        }
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('admin.user-manager'))->with('success', 'Berhasil menambah akun!');
+    }
+
+    public function toAddUser()
+    {
+        return view('admin.add-account');
     }
 }
