@@ -17,9 +17,9 @@
                     </div>
                     <div class="mt-4 justify-self-end lg:my-auto">
                         <a href="{{ route('add-account') }}">
-                            <button class="btn">
+                            <button class="btn border-cyan-700 hover:bg-cyan-50">
                                 <svg viewBox="-1 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" class="size-10">
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" class="size-6">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                     <g id="SVGRepo_iconCarrier">
@@ -39,7 +39,7 @@
                                         </g>
                                     </g>
                                 </svg>
-                                Tambah Akun
+                                <span>Tambah Akun</span>
                             </button>
                         </a>
                     </div>
@@ -47,6 +47,11 @@
 
                 @if (Session::has('success'))
                     <div class="alert alert-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="h-6 w-6 shrink-0 stroke-current">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
                         {{ Session::get('success') }}
                     </div>
                 @endif
@@ -164,7 +169,7 @@
 
                                         <dialog id="modal_deletion_{{ $user->id }}" class="modal">
                                             <div class="modal-box">
-                                                <div class="form-control mb-3">
+                                                <div class="form-control mb-3 text-center">
                                                     <h3>Yakin Ingin Menghapus Akun</h3>
                                                     <form action="{{ route('delete.account', $user->id) }}"
                                                         method="POST">

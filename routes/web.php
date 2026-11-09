@@ -33,11 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/user-manager', [AuthController::class,'toManageUser'])->name('admin.user-manager');
-
+    Route::post('/add-category', [BookController::class, 'addCategory'])->name('admin.add-category');
     Route::get('/add-account', [AuthController::class,'toAddUser'])->name('add-account');
     Route::post('/add-account', [AuthController::class,'addUser'])->name('admin.add-user');
-    Route::delete('/deletion/{id}', [BookController::class,'destroy'])->name('book.delete');
-
+    Route::delete('/deletion/{id}/book-delete', [BookController::class,'delBook'])->name('delete.book');
+    Route::delete('/deletion-category/{id}/category-delete', [BookController::class,'delCategory'])->name('delete.category');
     Route::patch('/user-manager/{id}/update-user-cred',[AuthController::class, 'updateUserCred'])->name('update.cred');
     Route::delete('/user-manager/{id}/delete-user', [AuthController::class,'deleteUser'])->name('delete.account');
 

@@ -108,7 +108,7 @@
                                                         Kelas</span></label>
                                                 <input type="text" name="kelas"
                                                     value="{{ old('name', auth()->user()->kelas) }}"
-                                                    class="input input-bordered w-full" required>
+                                                    class="input input-bordered w-full">
                                             </div>
 
                                             <div class="modal-action">
@@ -194,7 +194,8 @@
                                 @method('PATCH')
                                 <div class="list-row w-full">
                                     <div>
-                                        <svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="size-10">
+                                        <svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                            class="size-10">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                 stroke-linejoin="round"></g>
@@ -227,6 +228,18 @@
                                         Gambar</button>
                                 </div>
                             </form>
+                        </ul>
+                        <ul>
+                            @if (Session::has('success'))
+                                <div class="alert alert-info alert-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        class="h-6 w-6 shrink-0 stroke-current">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    {{ Session::get('success') }}
+                                </div>
+                            @endif
                         </ul>
                     </div>
                 </div>

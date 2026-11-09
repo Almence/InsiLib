@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use App\Models\Loan;
 use App\Models\Book;
@@ -19,7 +20,8 @@ class DashboardController extends Controller
         if (auth()->user()->role === 'admin') {
             $pendingLoans = Loan::with(['user', 'book'])->where('status', 'pending')->latest()->get();
             $borrowedLoans = Loan::with(['user', 'book'])->where('status', 'borrowed')->latest()->get();
-            return view('dashboard', compact('borrowedLoans', 'pendingLoans'));
+            $categories = Category::latest()->get();
+            return view('dashboard', compact('borrowedLoans', 'pendingLoans', 'categories'));
         }
         $loans = auth()->user()->loans()->with('book')->paginate($perPage);
         return view('dashboard', compact('loans'));

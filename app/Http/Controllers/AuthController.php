@@ -101,7 +101,7 @@ class AuthController extends Controller
 
         $user->save();
 
-        return redirect()->back()->with('success', 'Update kredensial untuk akun' . $user->name . 'berhasil!');
+        return redirect()->back()->with('success', 'Update kredensial untuk akun ' . $user->name . ' berhasil!');
     }
 
     public function deleteUser($id)
