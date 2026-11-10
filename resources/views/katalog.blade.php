@@ -180,6 +180,7 @@
 
                         <div
                             class="card cursor-pointer border border-base-200 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-cyan-700/30 hover:shadow-lg">
+                            @if (Auth::user()->role === 'admin')
                             <button class="btn btn-sm btn-circle btn-error absolute -right-4 -top-4 z-100"
                                 onclick="modal_deletion_{{ $book->id }}.showModal()"><svg viewBox="0 0 24 24"
                                     fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
@@ -191,7 +192,8 @@
                                             stroke="#000000" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round"></path>
                                     </g>
-                                </svg></button>
+                                </svg>
+                            </button>
                             <dialog class="modal" id="modal_deletion_{{ $book->id }}">
                                 <div class="modal-box">
                                     <h3 class="text-center">Apakah anda yakin ingin menghapus buku ini?</h3>
@@ -210,6 +212,7 @@
                                     <button>close</button>
                                 </form>
                             </dialog>
+                            @endif
                             <div onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()">
                                 <figure class="aspect-[3/4] overflow-hidden bg-base-200 px-4 pt-4">
                                     @if ($book->cover_image)
