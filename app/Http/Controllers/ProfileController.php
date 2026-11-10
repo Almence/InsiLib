@@ -22,7 +22,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return redirect()->back()->with('success', 'Nama berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Nama dan/atau kelas berhasil diperbarui!');
     }
 
     public function updatePassword(Request $request)

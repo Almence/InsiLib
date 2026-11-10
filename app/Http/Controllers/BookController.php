@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Category;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Str;
+use function PHPUnit\Framework\returnArgument;
 
 class BookController extends Controller
 {
@@ -157,11 +160,36 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy()
+    {
+    }
+
+    public function delBook($id)
     {
         $book = Book::findOrFail($id);
         $book->delete();
 
-        redirect()->back()->with('success', 'Buku' . $book->title .'berhasil dihapus.');
+        return redirect()->back()->with('success', 'Buku ' . $book->title . ' berhasil dihapus.');
+    }
+
+    public function delCategory(Request $request, $id)
+    {
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->back()->with('success', 'Kategori berhasil dihapus!');
+    }
+
+    public function addCategory(Request $request) {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        Category::create([
+            'name' => $validated['name'],
+            'slug' => Str::slug($validated['name'])
+        ]);
+
+        return redirect()->back()->with('success', 'Kategori berhasil ditambahkan!');
     }
 }

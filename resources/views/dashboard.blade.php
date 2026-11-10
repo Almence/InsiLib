@@ -66,11 +66,80 @@
                                                 class="btn btn-sm border-white bg-white text-cyan-800 hover:border-cyan-50 hover:bg-cyan-50">
                                                 Edit Buku
                                             </a></li>
+                                        <li>
+                                            <button
+                                                class="btn btn-sm border-white bg-white text-cyan-800 hover:border-cyan-50 hover:ng-cyan-50"
+                                                onclick="modal_kategori.showModal()">
+                                                Edit Kategori
+                                            </button>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    @if (Session::has('success'))
+                        <div class="alert alert-info alert-outline">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="h-6 w-6 shrink-0 stroke-current">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
+
+                    <dialog class="modal" id="modal_kategori">
+                        <div class="modal-box max-h-1/2">
+                            <h2 class="text-lg font-bold">Kelola Kategori</h2>
+                            <ul class="list bg-base-100 rounded-box shadow-md overflow-auto">
+                                <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Daftar Kategori Buku</li>
+                                @forelse ($categories as $category)
+                                    <li class="list-row">
+                                        <div class="badge badge-info badge-outline">{{ $category->name }}</div>
+                                        <form action="{{ route('delete.category', $category->id) }}" method="POST"
+                                            class="justify-self-end">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-square btn-ghost">
+                                                <svg viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" class="size-6">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path
+                                                            d="M6.99486 7.00636C6.60433 7.39689 6.60433 8.03005 6.99486 8.42058L10.58 12.0057L6.99486 15.5909C6.60433 15.9814 6.60433 16.6146 6.99486 17.0051C7.38538 17.3956 8.01855 17.3956 8.40907 17.0051L11.9942 13.4199L15.5794 17.0051C15.9699 17.3956 16.6031 17.3956 16.9936 17.0051C17.3841 16.6146 17.3841 15.9814 16.9936 15.5909L13.4084 12.0057L16.9936 8.42059C17.3841 8.03007 17.3841 7.3969 16.9936 7.00638C16.603 6.61585 15.9699 6.61585 15.5794 7.00638L11.9942 10.5915L8.40907 7.00636C8.01855 6.61584 7.38538 6.61584 6.99486 7.00636Z"
+                                                            fill="currentColor"></path>
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </li>
+                                @empty
+                                    <span class="text-center m-4">Belum ada kategori.</span>
+                                @endforelse
+                            </ul>
+                            <div class="form-control mt-4">
+                                <form action="{{ route('admin.add-category') }}" method="POST">
+                                    @csrf
+                                    
+                                    <label for="name" class="label">
+                                        <span class="label-text">Tambah Kategori</span>
+                                    </label>
+                                    <input type="text" name="name" placeholder="Contoh: Novel" class="input input-text w-full">
+
+                                    <button class="btn btn-success btn-outline w-full mt-2">
+                                        Tambah Kategori
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <form method="dialog" class="modal-backdrop">
+                            <button>close</button>
+                        </form>
+                    </dialog>
 
                     <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div class="flex items-center gap-4 rounded-2xl border border-amber-200 bg-amber-50 p-5">
@@ -125,10 +194,12 @@
                                     <div class="flex min-w-0 items-center gap-4">
                                         @if ($loan->book->cover_image)
                                             @if (\Illuminate\Support\Str::startsWith($loan->book->cover_image, ['http://', 'https://']))
-                                                <img src="{{ $loan->book->cover_image }}" alt="{{ $loan->book->title }}"
+                                                <img src="{{ $loan->book->cover_image }}"
+                                                    alt="{{ $loan->book->title }}"
                                                     class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm" />
                                             @else
-                                                <img src="{{ asset('storage/' . $loan->book->cover_image) }}" alt="Cover {{ $loan->book->title }}"
+                                                <img src="{{ asset('storage/' . $loan->book->cover_image) }}"
+                                                    alt="Cover {{ $loan->book->title }}"
                                                     class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm">
                                             @endif
                                         @else
@@ -194,10 +265,12 @@
                                     <div class="flex min-w-0 items-center gap-4">
                                         @if ($loan->book->cover_image)
                                             @if (\Illuminate\Support\Str::startsWith($loan->book->cover_image, ['http://', 'https://']))
-                                                <img src="{{ $loan->book->cover_image }}" alt="{{ $loan->book->title }}"
+                                                <img src="{{ $loan->book->cover_image }}"
+                                                    alt="{{ $loan->book->title }}"
                                                     class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm" />
                                             @else
-                                                <img src="{{ asset('storage/' . $loan->book->cover_image) }}" alt="Cover {{ $loan->book->title }}"
+                                                <img src="{{ asset('storage/' . $loan->book->cover_image) }}"
+                                                    alt="Cover {{ $loan->book->title }}"
                                                     class="h-20 w-14 shrink-0 rounded-lg object-cover shadow-sm">
                                             @endif
                                         @else

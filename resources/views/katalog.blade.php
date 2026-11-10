@@ -167,6 +167,17 @@
                     </div>
                 </div>
 
+                @if (Session::has('success'))
+                    <div class="alert alert-info alert-outline">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="h-6 w-6 shrink-0 stroke-current">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
+
                 <div class="divider my-0 border-solid md:border-dotted">
                     @if (request('search'))
                         <p class="text-sm text-base-content/70">Hasil pencarian untuk:
@@ -198,7 +209,10 @@
                                 <div class="modal-box">
                                     <h3 class="text-center">Apakah anda yakin ingin menghapus buku ini?</h3>
                                     <div class="flex lg:flex-row mt-3 gap-2">
-                                        <form action="{{ route('book.delete', $book->id) }} }}" class="grow">
+                                        <form action="{{ route('delete.book', $book->id) }}" class="grow"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
                                             <button type="submit" class="btn btn-error btn-outline w-full">
                                                 Hapus
                                             </button>
