@@ -349,7 +349,7 @@
                         @forelse($loans ?? [] as $loan)
                             <article
                                 class="flex flex-col gap-4 rounded-2xl border border-base-200 bg-base-100 p-4 shadow-sm transition hover:border-cyan-700/30 hover:shadow-md sm:flex-row md:gap-6 md:p-5">
-                                <div class="flex min-w-0 flex-1 items-start gap-4">
+                                <div class="flex min-w-0 flex-1 items-start gap-3 sm:gap-4">
                                     <div class="h-28 w-20 shrink-0 overflow-hidden rounded-xl bg-base-200 shadow-sm">
                                         @if ($loan->book->cover_image)
                                             @if (\Illuminate\Support\Str::startsWith($loan->book->cover_image, ['http://', 'https://']))
@@ -412,46 +412,46 @@
                                             @endif
                                         </div>
                                     </div>
-
-                                    @if ($loan->status == 'pending')
-                                        <div
-                                            class="flex shrink-0 items-center border-t border-base-200 pt-3 sm:border-0 sm:pt-0">
-                                            <button type="button"
-                                                onclick="document.getElementById('code_modal_{{ $loan->id }}').showModal()"
-                                                class="btn btn-sm border-cyan-700 bg-cyan-700 text-white hover:border-cyan-800 hover:bg-cyan-800">
-                                                Tampilkan Kode
-                                            </button>
-
-                                            <dialog id="code_modal_{{ $loan->id }}" class="modal">
-                                                <div class="modal-box max-w-sm text-center">
-                                                    <p
-                                                        class="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700">
-                                                        Verifikasi Peminjaman</p>
-                                                    <h3 class="mb-2 mt-1 text-lg font-bold">Kode Anggota</h3>
-                                                    <p class="mb-4 text-sm text-base-content/70">
-                                                        Tunjukkan kode ini kepada petugas perpustakaan.
-                                                    </p>
-                                                    <div
-                                                        class="mb-4 rounded-xl border-2 border-dashed border-cyan-300 bg-cyan-50 px-6 py-4">
-                                                        <span
-                                                            class="font-mono text-4xl font-extrabold tracking-widest text-cyan-700">
-                                                            {{ $loan->verification_code }}
-                                                        </span>
-                                                    </div>
-                                                    <p class="mb-4 text-xs text-base-content/60">
-                                                        Buku: <strong
-                                                            class="text-base-content">{{ $loan->book->title }}</strong>
-                                                    </p>
-                                                    <form method="dialog">
-                                                        <button class="btn btn-sm w-full">Tutup</button>
-                                                    </form>
-                                                </div>
-                                                <form method="dialog" class="modal-backdrop"><button>close</button>
-                                                </form>
-                                            </dialog>
-                                        </div>
-                                    @endif
                                 </div>
+
+                                @if ($loan->status == 'pending')
+                                    <div
+                                        class="flex w-full items-center border-t border-base-200 pt-3 sm:w-auto sm:shrink-0 sm:border-0 sm:pt-0">
+                                        <button type="button"
+                                            onclick="document.getElementById('code_modal_{{ $loan->id }}').showModal()"
+                                            class="btn btn-sm w-full border-cyan-700 bg-cyan-700 text-white hover:border-cyan-800 hover:bg-cyan-800 sm:w-auto">
+                                            Tampilkan Kode
+                                        </button>
+
+                                        <dialog id="code_modal_{{ $loan->id }}" class="modal">
+                                            <div class="modal-box max-w-sm text-center">
+                                                <p
+                                                    class="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700">
+                                                    Verifikasi Peminjaman</p>
+                                                <h3 class="mb-2 mt-1 text-lg font-bold">Kode Anggota</h3>
+                                                <p class="mb-4 text-sm text-base-content/70">
+                                                    Tunjukkan kode ini kepada petugas perpustakaan.
+                                                </p>
+                                                <div
+                                                    class="mb-4 rounded-xl border-2 border-dashed border-cyan-300 bg-cyan-50 px-6 py-4">
+                                                    <span
+                                                        class="font-mono text-4xl font-extrabold tracking-widest text-cyan-700">
+                                                        {{ $loan->verification_code }}
+                                                    </span>
+                                                </div>
+                                                <p class="mb-4 text-xs text-base-content/60">
+                                                    Buku: <strong
+                                                        class="text-base-content">{{ $loan->book->title }}</strong>
+                                                </p>
+                                                <form method="dialog">
+                                                    <button class="btn btn-sm w-full">Tutup</button>
+                                                </form>
+                                            </div>
+                                            <form method="dialog" class="modal-backdrop"><button>close</button>
+                                            </form>
+                                        </dialog>
+                                    </div>
+                                @endif
                             </article>
                         @empty
                             <div
