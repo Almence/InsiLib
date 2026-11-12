@@ -9,7 +9,7 @@
                 
                 <!-- Badge Indikator Scan -->
                 <div class="flex items-center gap-2 mb-2">
-                    <span class="badge badge-primary badge-sm">QR Code Scanned</span>
+                    <span class="badge bg-cyan-700 text-white badge-sm">QR Code Scanned</span>
                     <span class="text-xs text-base-content/60">Perpustakaan InsiLib</span>
                 </div>
 
@@ -48,7 +48,7 @@
                     <a href="{{ url('/dashboard') }}" class="btn btn-ghost order-2 sm:order-1">Batal</a>
                     
                     @if($book->stock > 0)
-                        <button type="submit" class="btn btn-primary order-1 sm:order-2">
+                        <button type="submit" class="btn text-white bg-cyan-700 order-1 sm:order-2">
                             📖 Konfirmasi Pinjam Buku
                         </button>
                     @else

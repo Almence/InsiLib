@@ -84,7 +84,7 @@
                             <div class="space-y-1.5">
                                 <label for="email" class="text-sm font-semibold text-base-content/80">Alamat Email</label>
                                 <div class="relative">
-                                    <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-base-content/40">
+                                    <span class="pointer-events-none absolute inset-y-0 left-3 z-10 flex items-center text-base-content/40">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2">
                                             <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -104,7 +104,7 @@
                             <div class="space-y-1.5">
                                 <label for="password" class="text-sm font-semibold text-base-content/80">Kata Sandi</label>
                                 <div class="relative">
-                                    <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-base-content/40">
+                                    <span class="pointer-events-none absolute inset-y-0 left-3 z-10 flex items-center text-base-content/40">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2">
                                             <rect x="3" y="11" width="18" height="10" rx="2" />

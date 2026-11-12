@@ -22,24 +22,27 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/request-borrow/{id}', [LoanController::class, 'showConfirmBorrow'])->name('borrow.confirm');
     Route::post('/request-borrow/{id}', [LoanController::class, 'requestBorrow'])->name('borrow.store');
-    Route::post('/admin/loans/{id}/approve', [LoanController::class, 'approveLoan'])->name('admin.loans.approve');
-    Route::post('/admin/loans/{id}/return', [LoanController::class, 'bookReturn'])->name('admin.loans.return');
-    Route::get('/admin/print-qr', [QrCodeController::class, 'printQr'])->name('admin.print-qr');
-    Route::get('/admin/books/create', [BookController::class, 'create'])->name('books.create');
-    Route::get('/admin/books/update/{id}', [BookController::class, 'edit'])->name('books.edit');
-    Route::post('/admin/books/create', [BookController::class, 'store'])->name('books.store');
-    Route::post('/admin/books/update/{id}', [BookController::class, 'update'])->name('books.update');
     Route::resource('books', BookController::class)->only(['index', 'show']);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/user-manager', [AuthController::class,'toManageUser'])->name('admin.user-manager');
-    Route::post('/add-category', [BookController::class, 'addCategory'])->name('admin.add-category');
-    Route::get('/add-account', [AuthController::class,'toAddUser'])->name('add-account');
-    Route::post('/add-account', [AuthController::class,'addUser'])->name('admin.add-user');
-    Route::delete('/deletion/{id}/book-delete', [BookController::class,'delBook'])->name('delete.book');
-    Route::delete('/deletion-category/{id}/category-delete', [BookController::class,'delCategory'])->name('delete.category');
-    Route::patch('/user-manager/{id}/update-user-cred',[AuthController::class, 'updateUserCred'])->name('update.cred');
-    Route::delete('/user-manager/{id}/delete-user', [AuthController::class,'deleteUser'])->name('delete.account');
+    Route::middleware('admin')->group(function () {
+        Route::post('/admin/loans/{id}/approve', [LoanController::class, 'approveLoan'])->name('admin.loans.approve');
+        Route::post('/admin/loans/{id}/return', [LoanController::class, 'bookReturn'])->name('admin.loans.return');
+        Route::get('/admin/print-qr', [QrCodeController::class, 'printQr'])->name('admin.print-qr');
+        Route::get('/admin/books/create', [BookController::class, 'create'])->name('books.create');
+        Route::get('/admin/books/update/{id}', [BookController::class, 'edit'])->name('books.edit');
+        Route::post('/admin/books/create', [BookController::class, 'store'])->name('books.store');
+        Route::post('/admin/books/update/{id}', [BookController::class, 'update'])->name('books.update');
+
+        Route::get('/user-manager', [AuthController::class, 'toManageUser'])->name('admin.user-manager');
+        Route::post('/add-category', [BookController::class, 'addCategory'])->name('admin.add-category');
+        Route::get('/add-account', [AuthController::class, 'toAddUser'])->name('add-account');
+        Route::post('/add-account', [AuthController::class, 'addUser'])->name('admin.add-user');
+        Route::delete('/deletion/{id}/book-delete', [BookController::class, 'delBook'])->name('delete.book');
+        Route::delete('/deletion-category/{id}/category-delete', [BookController::class, 'delCategory'])->name('delete.category');
+        Route::patch('/user-manager/{id}/update-user-cred', [AuthController::class, 'updateUserCred'])->name('update.cred');
+        Route::delete('/user-manager/{id}/delete-user', [AuthController::class, 'deleteUser'])->name('delete.account');
+    });
 
     Route::patch('/profile/name', [ProfileController::class, 'updateNameClass'])->name('update.nama');
     Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('update.password');

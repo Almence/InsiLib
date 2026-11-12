@@ -6,19 +6,26 @@
     <div class="mx-auto my-8 max-w-5xl md:my-10">
         <div class="overflow-hidden rounded-3xl border border-base-200 bg-base-100 shadow-xl">
             <div class="grid md:grid-cols-5">
-                <aside class="relative flex min-h-64 flex-col justify-between overflow-hidden bg-gradient-to-br from-cyan-700 to-cyan-950 p-7 text-white md:col-span-2 md:min-h-full md:p-9">
-                    <div class="pointer-events-none absolute -right-14 -top-14 h-48 w-48 rounded-full border-[24px] border-white/10"></div>
-                    <div class="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full border-[28px] border-cyan-400/10"></div>
+                <aside
+                    class="relative flex min-h-64 flex-col justify-between overflow-hidden bg-gradient-to-br from-cyan-700 to-cyan-950 p-7 text-white md:col-span-2 md:min-h-full md:p-9">
+                    <div
+                        class="pointer-events-none absolute -right-14 -top-14 h-48 w-48 rounded-full border-[24px] border-white/10">
+                    </div>
+                    <div
+                        class="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full border-[28px] border-cyan-400/10">
+                    </div>
 
                     <div class="relative">
-                        <span class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium text-cyan-50">
+                        <span
+                            class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium text-cyan-50">
                             Gerbang Pengetahuan
                         </span>
                         <h1 class="mt-6 font-serif-italic text-4xl md:text-5xl">InsiLib</h1>
                     </div>
 
                     <div class="relative mt-10">
-                        <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-cyan-100">
+                        <div
+                            class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-cyan-100">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -31,15 +38,18 @@
                         </p>
                         <ul class="mt-5 space-y-3 text-sm text-cyan-50/90">
                             <li class="flex items-center gap-3">
-                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-cyan-200">✓</span>
+                                <span
+                                    class="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-cyan-200">✓</span>
                                 Jelajahi koleksi buku
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-cyan-200">✓</span>
+                                <span
+                                    class="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-cyan-200">✓</span>
                                 Pantau riwayat peminjaman
                             </li>
                             <li class="flex items-center gap-3">
-                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-cyan-200">✓</span>
+                                <span
+                                    class="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-cyan-200">✓</span>
                                 Akses layanan dengan QR
                             </li>
                         </ul>
@@ -49,7 +59,8 @@
                 <section class="p-6 sm:p-8 md:col-span-3 md:p-10">
                     <div class="mb-7">
                         <p class="text-xs font-bold uppercase tracking-[0.18em] text-cyan-700">Keanggotaan InsiLib</p>
-                        <h2 class="mt-2 text-2xl font-bold tracking-tight text-base-content md:text-3xl">Buat Akun Baru</h2>
+                        <h2 class="mt-2 text-2xl font-bold tracking-tight text-base-content md:text-3xl">Buat Akun Baru
+                        </h2>
                         <p class="mt-2 text-sm leading-relaxed text-base-content/60">
                             Isi informasi di bawah ini untuk mulai menggunakan layanan perpustakaan.
                         </p>
@@ -78,20 +89,52 @@
 
                         <div class="space-y-1.5">
                             <label for="nis" class="text-sm font-semibold text-base-content/80">NIS</label>
-                            <input type="text" id="nis" name="nis" value="{{ old('nis') }}"
-                                placeholder="Nomor Induk Siswa" autocomplete="off" maxlength="20" required
-                                aria-invalid="{{ $errors->has('nis') ? 'true' : 'false' }}"
-                                class="input input-bordered w-full focus:border-cyan-700 focus:outline-cyan-700">
-                            <p class="text-xs text-base-content/50">Satu NIS hanya dapat digunakan untuk satu akun.</p>
+                            <div class="relative">
+                                <span
+                                    class="pointer-events-none absolute inset-y-0 left-3 z-10 flex items-center text-base-content/40">
+                                    <svg viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                        class="size-4">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                        </g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M21 18.5H3C2.72 18.5 2.5 18.28 2.5 18V7C2.5 6.72 2.72 6.5 3 6.5H21C21.28 6.5 21.5 6.72 21.5 7V18C21.5 18.28 21.28 18.5 21 18.5Z"
+                                                stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                            <path
+                                                d="M15.2201 12.74C16.2419 12.74 17.0701 11.9028 17.0701 10.87C17.0701 9.83722 16.2419 9 15.2201 9C14.1984 9 13.3701 9.83722 13.3701 10.87C13.3701 11.9028 14.1984 12.74 15.2201 12.74Z"
+                                                stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                            <path
+                                                d="M18.5901 14.01C18.9001 14.54 19.0901 15.14 19.1201 15.78C19.1301 15.9 19.0301 16 18.9101 16H11.5201C11.4001 16 11.3101 15.9 11.3101 15.78C11.3501 15.14 11.5401 14.54 11.8401 14.01"
+                                                stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                            <path d="M4.5 12.5H8.92999" stroke="#0F0F0F" stroke-miterlimit="10"
+                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M4.5 10.5H7.92999" stroke="#0F0F0F" stroke-miterlimit="10"
+                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M4.5 14.5H6.92999" stroke="#0F0F0F" stroke-miterlimit="10"
+                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <input type="text" id="nis" name="nis" value="{{ old('nis') }}"
+                                    placeholder="Masukkan NIS" autocomplete="name" required
+                                    aria-invalid="{{ $errors->has('nis') ? 'true' : 'false' }}"
+                                    class="input input-bordered w-full pl-10 focus:border-cyan-700 focus:outline-cyan-700">
+                            </div>
                             @error('nis')
                                 <p class="text-xs text-error">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="space-y-1.5">
-                            <label for="name" class="text-sm font-semibold text-base-content/80">Nama Lengkap</label>
+                            <label for="name" class="text-sm font-semibold text-base-content/80">Nama
+                                Lengkap</label>
                             <div class="relative">
-                                <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-base-content/40">
+                                <span
+                                    class="pointer-events-none absolute inset-y-0 left-3 z-10 flex items-center text-base-content/40">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2">
                                         <circle cx="12" cy="8" r="4" />
@@ -109,9 +152,11 @@
                         </div>
 
                         <div class="space-y-1.5">
-                            <label for="email" class="text-sm font-semibold text-base-content/80">Alamat Email</label>
+                            <label for="email" class="text-sm font-semibold text-base-content/80">Alamat
+                                Email</label>
                             <div class="relative">
-                                <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-base-content/40">
+                                <span
+                                    class="pointer-events-none absolute inset-y-0 left-3 z-10 flex items-center text-base-content/40">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2">
                                         <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -130,18 +175,20 @@
 
                         <div class="grid gap-5 sm:grid-cols-2">
                             <div class="space-y-1.5">
-                                <label for="password" class="text-sm font-semibold text-base-content/80">Kata Sandi</label>
+                                <label for="password" class="text-sm font-semibold text-base-content/80">Kata
+                                    Sandi</label>
                                 <div class="relative">
-                                    <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-base-content/40">
+                                    <span
+                                        class="pointer-events-none absolute inset-y-0 left-3 z-10 flex items-center text-base-content/40">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2">
                                             <rect x="3" y="11" width="18" height="10" rx="2" />
                                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                                         </svg>
                                     </span>
-                                    <input type="password" id="password" name="password" placeholder="Minimal 8 karakter"
-                                        autocomplete="new-password" minlength="8" required
-                                        aria-invalid="{{ $errors->has('password') ? 'true' : 'false' }}"
+                                    <input type="password" id="password" name="password"
+                                        placeholder="Minimal 8 karakter" autocomplete="new-password" minlength="8"
+                                        required aria-invalid="{{ $errors->has('password') ? 'true' : 'false' }}"
                                         class="input input-bordered w-full pl-10 pr-10 focus:border-cyan-700 focus:outline-cyan-700">
                                     <button type="button" onclick="togglePassword('password')"
                                         aria-label="Tampilkan atau sembunyikan kata sandi"
@@ -163,7 +210,8 @@
                                 <label for="password_confirmation"
                                     class="text-sm font-semibold text-base-content/80">Konfirmasi Kata Sandi</label>
                                 <div class="relative">
-                                    <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-base-content/40">
+                                    <span
+                                        class="pointer-events-none absolute inset-y-0 left-3 z-10 flex items-center text-base-content/40">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2">
                                             <rect x="3" y="11" width="18" height="10" rx="2" />
@@ -171,7 +219,8 @@
                                         </svg>
                                     </span>
                                     <input type="password" id="password_confirmation" name="password_confirmation"
-                                        placeholder="Ulangi kata sandi" autocomplete="new-password" minlength="8" required
+                                        placeholder="Ulangi kata sandi" autocomplete="new-password" minlength="8"
+                                        required
                                         class="input input-bordered w-full pl-10 pr-10 focus:border-cyan-700 focus:outline-cyan-700">
                                     <button type="button" onclick="togglePassword('password_confirmation')"
                                         aria-label="Tampilkan atau sembunyikan konfirmasi kata sandi"
@@ -189,8 +238,8 @@
                         <button type="submit"
                             class="btn w-full border-cyan-700 bg-cyan-700 text-white shadow-sm hover:border-cyan-800 hover:bg-cyan-800">
                             Daftar Akun
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7" />
                             </svg>
                         </button>
