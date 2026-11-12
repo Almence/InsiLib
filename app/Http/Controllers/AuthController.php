@@ -51,12 +51,14 @@ class AuthController extends Controller
     public function processRegister(Request $request)
     {
         $validatedData = $request->validate([
+            'nis' => 'required|string|max:20|unique:users,nis',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = User::create([
+            'nis' => $validatedData['nis'],
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
@@ -86,10 +88,15 @@ class AuthController extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
+            'nis' => 'nullable|string|max:20|unique:users,nis,'.$user->id,
             'name' => 'required|string|max:255',
             'kelas' => 'nullable|string|max:255',
             'password' => 'nullable|max:6',
         ]);
+
+        if ($request->filled('nis')) {
+            $user->nis = $request->nis;
+        }
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
@@ -114,14 +121,14 @@ class AuthController extends Controller
     public function addUser(Request $request)
     {
         $validatedData = $request->validate([
-            'nis' => 'required|string|max:20',
+            'nis' => 'required|string|max:20|unique:users,nis',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = User::create([
-            'nis' =>
+            'nis' => $validatedData['nis'],
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),

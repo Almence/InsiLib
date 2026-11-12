@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Loan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LoanController extends Controller
 {
@@ -16,23 +17,26 @@ class LoanController extends Controller
     public function requestBorrow($id)
     {
         $book = Book::findOrFail($id);
+        $user = auth()->user();
 
-        $activeLoansCount = auth()->user()->loans()->whereIn('status', ['pending', 'borrowed'])->count();
+        return DB::transaction(function () use ($book, $user) {
+            $user = $user->newQuery()->lockForUpdate()->findOrFail($user->id);
+            $activeLoansCount = $user->loans()->whereIn('status', ['pending', 'borrowed', 'late'])->count();
 
-        if ($activeLoansCount >= 2) {
-            return redirect()->route('dashboard')->with('error', 'Kamu sudah mencapai batas maksimum peminjaman! (2 Buku sedang aktif diajukan atau dipinjam).');
-        }
+            if ($activeLoansCount >= 2) {
+                return redirect()->route('dashboard')->with('error', 'Kamu sudah mencapai batas maksimum peminjaman! (2 Buku sedang aktif diajukan atau dipinjam).');
+            }
 
-        Loan::create([
-            'user_id' => auth()->id(),
-            'book_id' => $book->id,
-            'borrow_date' => now(),
-            'due_date' => now()->addDays(7),
-            'status' => 'pending',
-            'verification_code' => rand(1000, 9999),
-        ]);
+            $user->loans()->create([
+                'book_id' => $book->id,
+                'borrow_date' => now(),
+                'due_date' => now()->addDays(7),
+                'status' => 'pending',
+                'verification_code' => rand(1000, 9999),
+            ]);
 
-        return redirect()->route('dashboard')->with('success', 'Permintaan peminjaman buku berhasil! Silakan datangi perpustakaan dan tunjukkan kode verifikasi.');
+            return redirect()->route('dashboard')->with('success', 'Permintaan peminjaman buku berhasil! Silakan datangi perpustakaan dan tunjukkan kode verifikasi.');
+        });
     }
 
     public function approveLoan(Request $request, $id)

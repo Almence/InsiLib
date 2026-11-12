@@ -153,7 +153,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <span>Jika ingin meminjam buku, datangi perpustakaan dan scan QR Code yang tertera pada
+                            <span>Jika ingin meminjam buku, klik Ajukan Peminjaman. Atau datangi perpustakaan dan scan QR Code yang tertera pada
                                 buku. Jika belum ada QR Code, hubungi pihak Petugas/Admin.</span>
                         </div>
                         <div role="alert" class="alert alert-warning lg:w-1/2 alert-outline">
@@ -192,40 +192,41 @@
                         <div
                             class="card cursor-pointer border border-base-200 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-cyan-700/30 hover:shadow-lg">
                             @if (Auth::user()->role === 'admin')
-                            <button class="btn btn-sm btn-circle btn-error absolute -right-4 -top-4 z-100"
-                                onclick="modal_deletion_{{ $book->id }}.showModal()"><svg viewBox="0 0 24 24"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path
-                                            d="M3 3L21 21M18 6L17.6 12M17.2498 17.2527L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6H4M16 6L15.4559 4.36754C15.1837 3.55086 14.4194 3 13.5585 3H10.4416C9.94243 3 9.47576 3.18519 9.11865 3.5M11.6133 6H20M14 14V17M10 10V17"
-                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round"></path>
-                                    </g>
-                                </svg>
-                            </button>
-                            <dialog class="modal" id="modal_deletion_{{ $book->id }}">
-                                <div class="modal-box">
-                                    <h3 class="text-center">Apakah anda yakin ingin menghapus buku ini?</h3>
-                                    <div class="flex lg:flex-row mt-3 gap-2">
-                                        <form action="{{ route('delete.book', $book->id) }}" class="grow"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-error btn-outline w-full">
-                                                Hapus
-                                            </button>
-                                        </form>
-                                        <form method="dialog" class="grow">
-                                            <button class="btn btn-ghost w-full">Batal</button>
-                                        </form>
+                                <button class="btn btn-sm btn-circle btn-error absolute -right-4 -top-4 z-100"
+                                    onclick="modal_deletion_{{ $book->id }}.showModal()"><svg viewBox="0 0 24 24"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                        </g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M3 3L21 21M18 6L17.6 12M17.2498 17.2527L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6H4M16 6L15.4559 4.36754C15.1837 3.55086 14.4194 3 13.5585 3H10.4416C9.94243 3 9.47576 3.18519 9.11865 3.5M11.6133 6H20M14 14V17M10 10V17"
+                                                stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <dialog class="modal" id="modal_deletion_{{ $book->id }}">
+                                    <div class="modal-box">
+                                        <h3 class="text-center">Apakah anda yakin ingin menghapus buku ini?</h3>
+                                        <div class="flex lg:flex-row mt-3 gap-2">
+                                            <form action="{{ route('delete.book', $book->id) }}" class="grow"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-error btn-outline w-full">
+                                                    Hapus
+                                                </button>
+                                            </form>
+                                            <form method="dialog" class="grow">
+                                                <button class="btn btn-ghost w-full">Batal</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                                <form method="dialog" class="modal-backdrop">
-                                    <button>close</button>
-                                </form>
-                            </dialog>
+                                    <form method="dialog" class="modal-backdrop">
+                                        <button>close</button>
+                                    </form>
+                                </dialog>
                             @endif
                             <div onclick="document.getElementById('book_modal_{{ $book->id }}').showModal()">
                                 <figure class="aspect-[3/4] overflow-hidden bg-base-200 px-4 pt-4">
@@ -284,7 +285,7 @@
                                     </div>
 
                                     <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2 md:gap-6">
-                                        <!-- Cover Buku di Modal -->
+
                                         @if ($book->cover_image)
                                             @if (Str::startsWith($book->cover_image, ['http://', 'https://']))
                                                 <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
@@ -342,38 +343,49 @@
                                                     <span class="text-base-content/60 block">Letak Rak</span>
                                                     <span class="font-semibold text-base">{{ $book->place }}</span>
                                                 </div>
-                                                <div class="divider"></div>
-                                            </div>
-
-                                            <div class="modal-action flex flex-col items-end mt-6 justify-end">
-                                                @if ($book->stock > 0)
-                                                    <div class="alert alert-success alert-dash w-full">
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            class="h-6 w-6 shrink-0 stroke-current" fill="none"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                        </svg>
-                                                        <span>Stok buku tersedia. Datangi Perpustakaan untuk
-                                                            meminjam.</span>
-                                                    </div>
-                                                @else
-                                                    <div class="alert alert-error alert-dash w-full">
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            class="h-6 w-6 shrink-0 stroke-current" fill="none"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                        </svg>
-                                                        <span>Maaf, stok buku habis. Silakan datang ke perpustakaan saat
-                                                            stok
-                                                            tersedia.</span>
-                                                    </div>
-                                                @endif
                                             </div>
                                         </div>
+
+                                        <div class="w-full h-full content-end">
+                                            @if ($book->stock > 0)
+                                                <form action="{{ route('borrow.confirm', $book->id) }}">
+                                                    <button class="btn bg-cyan-700 hover:bg-cyan-900 w-full text-white">
+                                                        Ajukan Peminjaman
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <button class="btn" disabled="disabled">
+                                                    Ajukan Peminjaman
+                                                </button>
+                                            @endif
+                                        </div>
+
+                                        @if ($book->stock > 0)
+                                            <div class="alert alert-success alert-dash w-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span>Stok buku tersedia. Datangi Perpustakaan untuk
+                                                    mengambil buku.</span>
+                                            </div>
+                                        @else
+                                            <div class="alert alert-error alert-dash w-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span>Maaf, stok buku habis. Silakan datang ke perpustakaan saat
+                                                    stok
+                                                    tersedia.</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
 

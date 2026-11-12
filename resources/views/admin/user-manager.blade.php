@@ -62,6 +62,7 @@
                             <tr>
                                 <th class="w-5"></th>
                                 <th>Nama</th>
+                                <th>NIS</th>
                                 <th>Kelas</th>
                                 <th>Email</th>
                                 <th>Edit Kredensial</th>
@@ -102,6 +103,12 @@
                                     <td class="block border-b border-base-200 py-3 md:table-cell md:border-0 md:py-4">
                                         <div
                                             class="mb-1 text-xs font-semibold uppercase tracking-wide opacity-60 md:hidden">
+                                            NIS</div>
+                                        {{ $user->nis ?? '-' }}
+                                    </td>
+                                    <td class="block border-b border-base-200 py-3 md:table-cell md:border-0 md:py-4">
+                                        <div
+                                            class="mb-1 text-xs font-semibold uppercase tracking-wide opacity-60 md:hidden">
                                             Kelas</div>
                                         {{ $user->kelas }}
                                     </td>
@@ -135,6 +142,12 @@
                                                         @csrf
                                                         @method('PATCH')
                                                         <div class="form-control mb-3">
+                                                            <label for="nis" class="label"><span
+                                                                    class="label-text">Ubah NIS</span></label>
+                                                            <input type="text" name="nis"
+                                                                value="{{ old('nis', $user->nis) }}"
+                                                                class="input input-bordered w-full" maxlength="20">
+
                                                             <label for="name" class="label"><span
                                                                     class="label-text">Ubah
                                                                     Nama</span></label>

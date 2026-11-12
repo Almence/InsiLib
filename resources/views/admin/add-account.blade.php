@@ -64,6 +64,17 @@
                         @csrf
 
                         <div class="space-y-1.5">
+                            <label for="nis" class="text-sm font-semibold text-base-content/80">NIS</label>
+                            <input type="text" id="nis" name="nis" value="{{ old('nis') }}"
+                                placeholder="Nomor Induk Siswa" autocomplete="off" maxlength="20" required
+                                aria-invalid="{{ $errors->has('nis') ? 'true' : 'false' }}"
+                                class="input input-bordered w-full focus:border-cyan-700 focus:outline-cyan-700">
+                            @error('nis')
+                                <p class="text-xs text-error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-1.5">
                             <label for="name" class="text-sm font-semibold text-base-content/80">Nama Lengkap</label>
                             <div class="relative">
                                 <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-base-content/40">

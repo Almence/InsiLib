@@ -22,6 +22,7 @@
 
                                 <h3 class="card-title">{{ auth()->user()->name }}</h3>
                                 <p class="text-xs text-base-content/70">{{ auth()->user()->email }}</p>
+                                <p class="text-xs text-base-content/70">NIS: {{ auth()->user()->nis ?? '-' }}</p>
                                 <div class="badge badge-soft badge-primary">{{ auth()->user()->role }}</div>
                             </div>
                         </div>
