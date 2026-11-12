@@ -349,8 +349,8 @@
                         @forelse($loans ?? [] as $loan)
                             <article
                                 class="flex flex-col gap-4 rounded-2xl border border-base-200 bg-base-100 p-4 shadow-sm transition hover:border-cyan-700/30 hover:shadow-md sm:flex-row md:gap-6 md:p-5">
-                                <div class="flex min-w-0 flex-1 items-start gap-4">
-                                    <div class="h-28 w-20 shrink-0 overflow-hidden rounded-xl bg-base-200 shadow-sm">
+                                <div class="lg:flex min-w-0 flex-1 items-start gap-4 grid grid-cols-2">
+                                    <div class="w-full lg:h-28 lg:w-20 shrink-0 overflow-hidden rounded-xl bg-base-200 shadow-sm">
                                         @if ($loan->book->cover_image)
                                             @if (\Illuminate\Support\Str::startsWith($loan->book->cover_image, ['http://', 'https://']))
                                                 <img src="{{ $loan->book->cover_image }}"
@@ -414,11 +414,12 @@
                                     </div>
 
                                     @if ($loan->status == 'pending')
+                                    <div class="lg:hidden"></div>
                                         <div
                                             class="flex shrink-0 items-center border-t border-base-200 pt-3 sm:border-0 sm:pt-0">
                                             <button type="button"
                                                 onclick="document.getElementById('code_modal_{{ $loan->id }}').showModal()"
-                                                class="btn btn-sm border-cyan-700 bg-cyan-700 text-white hover:border-cyan-800 hover:bg-cyan-800">
+                                                class="btn btn-sm border-cyan-700 bg-cyan-700 text-white hover:border-cyan-800 hover:bg-cyan-800 w-full lg:w-auto">
                                                 Tampilkan Kode
                                             </button>
 

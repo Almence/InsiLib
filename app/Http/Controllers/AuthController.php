@@ -114,12 +114,14 @@ class AuthController extends Controller
     public function addUser(Request $request)
     {
         $validatedData = $request->validate([
+            'nis' => 'required|string|max:20',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = User::create([
+            'nis' =>
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),

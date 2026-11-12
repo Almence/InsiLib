@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'Alex',
+            'nis' => '90123',
             'email' => 'alex@perpustakaan.com',
             'password' => Hash::make('password'),
             'role' => 'user',
