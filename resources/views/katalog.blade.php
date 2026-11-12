@@ -262,13 +262,16 @@
                             </div>
 
                             <dialog id="book_modal_{{ $book->id }}" class="modal">
-                                <div class="modal-box max-w-2xl">
-                                    <div class="flex flex-row justify-between">
-                                        <h3 class="mb-4 text-xl font-bold">{{ $book->title }}</h3>
+                                <div
+                                    class="modal-box max-h-[calc(100dvh-1rem)] w-[calc(100%-1rem)] max-w-2xl overflow-y-auto overscroll-contain p-4 sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100%-2rem)] sm:p-6">
+                                    <div class="flex items-start justify-between gap-3">
+                                        <h3 class="mb-4 min-w-0 flex-1 break-words text-lg font-bold sm:text-xl">
+                                            {{ $book->title }}
+                                        </h3>
 
                                         <div class="card-actions justify-end">
                                             <form method="dialog">
-                                                <button class="btn btn-square btn-sm">
+                                                <button class="btn btn-square btn-sm shrink-0">
                                                     <svg aria-label="Close" xmlns="http://www.w3.org/2000/svg"
                                                         class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                                         stroke="currentColor">
@@ -280,13 +283,24 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                                    <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2 md:gap-6">
                                         <!-- Cover Buku di Modal -->
-                                        <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
-                                            class="w-full h-full object-cover rounded-lg shadow-md" />
+                                        @if ($book->cover_image)
+                                            @if (Str::startsWith($book->cover_image, ['http://', 'https://']))
+                                                <img src="{{ $book->cover_image }}" alt="{{ $book->title }}"
+                                                    class="h-[30vh] min-h-32 max-h-56 w-full rounded-lg object-contain shadow-md md:aspect-[3/4] md:h-auto md:max-h-96 md:object-cover" />
+                                            @else
+                                                <img src="{{ asset('storage/' . $book->cover_image) }}"
+                                                    alt="{{ $book->title }}"
+                                                    class="h-[30vh] min-h-32 max-h-56 w-full rounded-lg object-contain shadow-md md:aspect-[3/4] md:h-auto md:max-h-96 md:object-cover" />
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('images/NoImage.jpg') }}" alt="Cover tidak tersedia"
+                                                class="h-[30vh] min-h-32 max-h-56 w-full rounded-lg object-contain shadow-md md:aspect-[3/4] md:h-auto md:max-h-96 md:object-cover" />
+                                        @endif
 
                                         <!-- Informasi Detail Buku -->
-                                        <div class="flex flex-col justify-between">
+                                        <div class="flex min-w-0 flex-col justify-between">
 
                                             <div class="space-y-3 text-sm">
                                                 <div>
@@ -333,7 +347,7 @@
 
                                             <div class="modal-action flex flex-col items-end mt-6 justify-end">
                                                 @if ($book->stock > 0)
-                                                    <div class="alert alert-success alert-dash">
+                                                    <div class="alert alert-success alert-dash w-full">
                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                             class="h-6 w-6 shrink-0 stroke-current" fill="none"
                                                             viewBox="0 0 24 24">
@@ -345,7 +359,7 @@
                                                             meminjam.</span>
                                                     </div>
                                                 @else
-                                                    <div class="alert alert-error alert-dash">
+                                                    <div class="alert alert-error alert-dash w-full">
                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                             class="h-6 w-6 shrink-0 stroke-current" fill="none"
                                                             viewBox="0 0 24 24">
