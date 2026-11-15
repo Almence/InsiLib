@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="">
+<html lang="id" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ isset($title) ? $title . ' - InsiLib' : 'InsiLib' }}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/icon.png') }}">
+    <script>
+        const savedTheme = localStorage.getItem('insilib-theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+            document.documentElement.dataset.theme = savedTheme;
+        }
+    </script>
     <link rel="preconnect" href="<https://fonts.bunny.net>">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
@@ -79,7 +85,22 @@
                                 Buku</a></li>
                     </ul>
                 </div>
-                <div class="lg:navbar-end">
+                <div class="lg:navbar-end flex items-center gap-2">
+                    <button id="theme-toggle" type="button" class="btn btn-ghost btn-circle"
+                        aria-label="Aktifkan tema gelap" title="Aktifkan tema gelap">
+                        <svg data-theme-icon="moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" />
+                        </svg>
+                        <svg data-theme-icon="sun" xmlns="http://www.w3.org/2000/svg"
+                            class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="4" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+                        </svg>
+                    </button>
                     <button type="submit" onclick="modal_logout.showModal()"
                         {{ request()->is(['register', '/']) ? 'disabled=disabled class=btn' : '' }}
                         class="btn bg-cyan-700 text-sm font-medium text-white hover:bg-red-800">

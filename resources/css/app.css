@@ -6,8 +6,12 @@
 @source '../**/*.js';
 
 @plugin 'daisyui' {
-    themes: light --default, dark --prefersdark, cupcake;
+    themes: light --default, dark;
 };
+
+html[data-theme='dark'] body {
+    background-image: none;
+}
 
 @font-face {
     font-family: 'Instrument';
