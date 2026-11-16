@@ -37,6 +37,10 @@
                                     </svg>
                                     <span class="text-cyan-700">Kelola User</span>
                                 </a>
+                                <a href="{{ route('admin.reports.active-loans') }}"
+                                    class="btn border-white bg-white text-cyan-800 hover:border-cyan-50 hover:bg-cyan-50">
+                                    Cetak Rekap Peminjaman Sisa
+                                </a>
                                 <div class="dropdown dropdown-hover dropdown-center">
                                     <div tabindex="0" role="button" class="btn m-1">
                                         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"

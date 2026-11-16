@@ -4,16 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Loan;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class LoanController extends Controller
 {
+    public function activeLoansReport(): View
+    {
+        $loans = Loan::with(['user', 'book'])
+            ->whereIn('status', ['borrowed', 'late'])
+            ->orderBy('due_date')
+            ->orderBy('borrow_date')
+            ->get();
+
+        return view('admin.active-loans-report', [
+            'loans' => $loans,
+            'reportDate' => now(),
+        ]);
+    }
+
     public function showConfirmBorrow($id)
     {
         $book = Book::findOrFail($id);
+
         return view('confirm-request', compact('book'));
     }
+
     public function requestBorrow($id)
     {
         $book = Book::findOrFail($id);
@@ -61,7 +78,7 @@ class LoanController extends Controller
             'due_date' => now()->addDays(7),
         ]);
 
-        // CATATAN: Di tahap ini, stok buku akan otomatis berkurang 1 
+        // CATATAN: Di tahap ini, stok buku akan otomatis berkurang 1
         // jika kita memicu event pengurangan stok atau menjalankannya di sini:
         $loan->book->decrement('stock');
 
@@ -93,6 +110,6 @@ class LoanController extends Controller
         // Kembalikan stok buku bertambah 1
         $loan->book->increment('stock');
 
-        return back()->with('success', 'Buku berhasil dikembalikan! Total denda: Rp ' . number_format($fine, 0, ',', '.'));
+        return back()->with('success', 'Buku berhasil dikembalikan! Total denda: Rp '.number_format($fine, 0, ',', '.'));
     }
 }

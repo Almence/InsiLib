@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::post('/admin/loans/{id}/approve', [LoanController::class, 'approveLoan'])->name('admin.loans.approve');
         Route::post('/admin/loans/{id}/return', [LoanController::class, 'bookReturn'])->name('admin.loans.return');
+        Route::get('/admin/reports/active-loans', [LoanController::class, 'activeLoansReport'])->name('admin.reports.active-loans');
         Route::get('/admin/print-qr', [QrCodeController::class, 'printQr'])->name('admin.print-qr');
         Route::get('/admin/books/create', [BookController::class, 'create'])->name('books.create');
         Route::get('/admin/books/update/{id}', [BookController::class, 'edit'])->name('books.edit');
