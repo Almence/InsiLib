@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Category;
-use GuzzleHttp\Promise\Create;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Str;
-use function PHPUnit\Framework\returnArgument;
 
 class BookController extends Controller
 {
@@ -25,7 +23,7 @@ class BookController extends Controller
         $perPage = (int) $request->input('per_page', 20);
         $perPage = in_array($perPage, [10, 20, 50, 100], true) ? $perPage : 20;
 
-        $categories = \App\Models\Category::all();
+        $categories = Category::all();
         $books = Book::query()
             ->when($search !== '', function (Builder $query) use ($search): void {
                 $query->where(function (Builder $query) use ($search): void {
@@ -34,7 +32,9 @@ class BookController extends Controller
                 });
             })
             ->when($filterBy !== 'all', function (Builder $query) use ($filterBy): void {
-                $query->where('category_id', $filterBy);
+                $query->whereHas('categories', function (Builder $query) use ($filterBy): void {
+                    $query->where('categories.id', $filterBy);
+                });
             })
             ->orderBy($sortBy, $sortDirection)
             ->paginate($perPage)
@@ -160,16 +160,14 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
-    {
-    }
+    public function destroy() {}
 
     public function delBook($id)
     {
         $book = Book::findOrFail($id);
         $book->delete();
 
-        return redirect()->back()->with('success', 'Buku ' . $book->title . ' berhasil dihapus.');
+        return redirect()->back()->with('success', 'Buku '.$book->title.' berhasil dihapus.');
     }
 
     public function delCategory(Request $request, $id)
@@ -180,14 +178,15 @@ class BookController extends Controller
         return redirect()->back()->with('success', 'Kategori berhasil dihapus!');
     }
 
-    public function addCategory(Request $request) {
+    public function addCategory(Request $request)
+    {
         $validated = $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
         ]);
 
         Category::create([
             'name' => $validated['name'],
-            'slug' => Str::slug($validated['name'])
+            'slug' => Str::slug($validated['name']),
         ]);
 
         return redirect()->back()->with('success', 'Kategori berhasil ditambahkan!');
